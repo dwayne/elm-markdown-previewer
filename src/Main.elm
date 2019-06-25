@@ -4,15 +4,16 @@ module Main exposing (main)
 import Browser
 import Html exposing (Html, div, h2, text, textarea)
 import Html.Attributes exposing (class)
+import Html.Events exposing (onInput)
 import Markdown
 
 
-main : Program () Model msg
+main : Program () Model Msg
 main =
   Browser.sandbox
     { init = init
     , view = view
-    , update = (\_ model -> model)
+    , update = update
     }
 
 
@@ -26,10 +27,24 @@ init : Model
 init = defaultContent
 
 
+-- UPDATE
+
+
+type Msg
+  = ChangedContent String
+
+
+update : Msg -> Model -> Model
+update msg _ =
+  case msg of
+    ChangedContent newContent ->
+      newContent
+
+
 -- VIEW
 
 
-view : Model -> Html msg
+view : Model -> Html Msg
 view content =
   div []
     [ viewEditor content
@@ -37,11 +52,11 @@ view content =
     ]
 
 
-viewEditor : String -> Html msg
+viewEditor : String -> Html Msg
 viewEditor content =
   div []
     [ h2 [] [ text "Editor" ]
-    , textarea [ class "editor" ] [ text content ]
+    , textarea [ class "editor", onInput ChangedContent ] [ text content ]
     ]
 
 

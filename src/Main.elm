@@ -3,8 +3,8 @@ module Main exposing (main)
 
 import Browser
 import Html exposing (Html, div, h2, i, span, text, textarea)
-import Html.Attributes exposing (class)
-import Html.Events exposing (onInput)
+import Html.Attributes exposing (class, classList)
+import Html.Events exposing (onClick, onInput)
 import Markdown
 
 
@@ -20,11 +20,22 @@ main =
 -- MODEL
 
 
-type alias Model = String
+type alias Model =
+  { content : String
+  , maximized : Maybe Window
+  }
+
+
+type Window
+  = Editor
+  | Previewer
 
 
 init : Model
-init = defaultContent
+init =
+  { content = defaultContent
+  , maximized = Nothing
+  }
 
 
 -- UPDATE
@@ -32,50 +43,93 @@ init = defaultContent
 
 type Msg
   = ChangedContent String
+  | ClickedMaximize Window
+  | ClickedMinimize
 
 
 update : Msg -> Model -> Model
-update msg _ =
+update msg model =
   case msg of
     ChangedContent newContent ->
-      newContent
+      { model | content = newContent }
+
+    ClickedMaximize window ->
+      { model | maximized = Just window }
+
+    ClickedMinimize ->
+      { model | maximized = Nothing }
 
 
 -- VIEW
 
 
 view : Model -> Html Msg
-view content =
+view { content, maximized } =
   div []
-    [ div [ class "mb10" ] [ viewEditor content ]
-    , viewPreviewer content
+    [ viewEditor content maximized
+    , viewPreviewer content maximized
     ]
 
 
-viewEditor : String -> Html Msg
-viewEditor content =
+viewEditor : String -> Maybe Window -> Html Msg
+viewEditor content maximized =
   div
-    [ class "small-window center" ]
+    [ classList
+        [ ("small-window", True)
+        , ("center", True)
+        , ("mb10", maximized == Nothing)
+        , ("maximized", maximized == Just Editor)
+        , ("hide", maximized == Just Previewer)
+        ]
+    ]
     [ div [ class "flex toolbar" ]
-        [ i [ class "mr5 fas fa-edit" ] []
+        [ i [ class "mr5 fa fa-edit" ] []
         , span [] [ text "Editor" ]
-        , i [ class "push-right resizer fas fa-arrows-alt" ] []
+        , if maximized == Just Editor then
+            viewMinimize
+          else
+            viewMaximize Editor
         ]
     , textarea [ class "editor", onInput ChangedContent ] [ text content ]
     ]
 
 
-viewPreviewer : String -> Html msg
-viewPreviewer content =
+viewPreviewer : String -> Maybe Window -> Html Msg
+viewPreviewer content maximized =
   div
-    [ class "large-window center" ]
+    [ classList
+        [ ("large-window", True)
+        , ("center", True)
+        , ("maximized", maximized == Just Previewer)
+        , ("hide", maximized == Just Editor)
+        ]
+    ]
     [ div [ class "flex toolbar" ]
-        [ i [ class "mr5 fab fa-html5" ] []
+        [ i [ class "mr5 fa fa-html5" ] []
         , span [] [ text "Previewer" ]
-        , i [ class "push-right resizer fas fa-arrows-alt" ] []
+        , if maximized == Just Previewer then
+            viewMinimize
+          else
+            viewMaximize Previewer
         ]
     , div [ class "previewer" ] [ toHtml content ]
     ]
+
+
+viewMaximize : Window -> Html Msg
+viewMaximize window =
+  i [ class "push-right resizer fa fa-arrows-alt"
+    , onClick (ClickedMaximize window)
+    ]
+    []
+
+
+viewMinimize : Html Msg
+viewMinimize =
+  i [ class "push-right resizer fa fa-compress"
+    , onClick ClickedMinimize
+    ]
+    []
 
 
 -- HELPERS

@@ -10,6 +10,10 @@
   margin-bottom: 10px;
 }
 
+.hide {
+  display: none;
+}
+
 .flex {
   display: flex;
 }
@@ -27,6 +31,7 @@
 
 body {
   margin: 10px 0;
+  overflow-y: scroll;
   background-color: #87b5b5;
 }
 
@@ -57,7 +62,7 @@ body {
   box-sizing: border-box;
 
   width: 100%;
-  min-height: 200px;
+  min-height: 250px;
 
   resize: vertical;
 
@@ -77,6 +82,14 @@ body {
   padding: 5px 10px;
 
   background-color: #c0d8d8;
+}
+
+.maximized {
+  width: 75%;
+}
+
+.maximized .editor {
+  min-height: 500px;
 }
 
 /* Markdown */

@@ -2,7 +2,7 @@ module Main exposing (main)
 
 
 import Browser
-import Html exposing (Html, div, h2, text, textarea)
+import Html exposing (Html, div, h2, i, span, text, textarea)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onInput)
 import Markdown
@@ -47,24 +47,34 @@ update msg _ =
 view : Model -> Html Msg
 view content =
   div []
-    [ viewEditor content
+    [ div [ class "mb10" ] [ viewEditor content ]
     , viewPreviewer content
     ]
 
 
 viewEditor : String -> Html Msg
 viewEditor content =
-  div []
-    [ h2 [] [ text "Editor" ]
+  div
+    [ class "small-window center" ]
+    [ div [ class "flex toolbar" ]
+        [ i [ class "mr5 fas fa-edit" ] []
+        , span [] [ text "Editor" ]
+        , i [ class "push-right resizer fas fa-arrows-alt" ] []
+        ]
     , textarea [ class "editor", onInput ChangedContent ] [ text content ]
     ]
 
 
 viewPreviewer : String -> Html msg
 viewPreviewer content =
-  div []
-    [ h2 [] [ text "Previewer" ]
-    , toHtml content
+  div
+    [ class "large-window center" ]
+    [ div [ class "flex toolbar" ]
+        [ i [ class "mr5 fab fa-html5" ] []
+        , span [] [ text "Previewer" ]
+        , i [ class "push-right resizer fas fa-arrows-alt" ] []
+        ]
+    , div [ class "previewer" ] [ toHtml content ]
     ]
 
 

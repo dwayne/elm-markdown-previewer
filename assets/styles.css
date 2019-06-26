@@ -1,4 +1,120 @@
+@import url('https://fonts.googleapis.com/css?family=Russo+One');
+
+/* Immutable */
+
+.mr5 {
+  margin-right: 5px;
+}
+
+.mb10 {
+  margin-bottom: 10px;
+}
+
+.flex {
+  display: flex;
+}
+
+.push-right {
+  margin-left: auto;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Custom */
+
+body {
+  margin: 10px 0;
+  background-color: #87b5b5;
+}
+
+.small-window {
+  width: 600px;
+}
+
+.large-window {
+  width: 800px;
+}
+
+.toolbar {
+  border: 1px solid #333;
+  padding: 4px;
+
+  font-family: Russo One;
+  font-size: 15px;
+
+  background-color: #4aa3a3;
+}
+
+.resizer:hover {
+  color: #57e2b1;
+  cursor: pointer;
+}
+
 .editor {
-  width: 500px;
-  height: 300px;
+  box-sizing: border-box;
+
+  width: 100%;
+  min-height: 200px;
+
+  resize: vertical;
+
+  border: 1px solid #333;
+  border-top: none;
+
+  padding-top: 5px;
+  padding-left: 5px;
+
+  background-color: #c0d8d8;
+}
+
+.previewer {
+  border: 1px solid #333;
+  border-top: none;
+
+  padding: 5px 10px;
+
+  background-color: #c0d8d8;
+}
+
+/* Markdown */
+
+.previewer blockquote {
+  border-left: 3px solid #224B4B;
+  color: #224B4B;
+  padding-left: 5px;
+  margin-left: 25px;
+}
+
+.previewer code {
+  background: white;
+  padding: 1px 4px 2px 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.previewer pre {
+  background: white;
+  padding: 5px 0 5px 5px;
+}
+
+.previewer h1 {
+  border-bottom: 2px solid #224b4b;
+}
+
+.previewer h2 {
+  border-bottom: 1px solid #224b4b;
+}
+
+.previewer table {
+  border-collapse: collapse;
+}
+
+.previewer td,
+.previewer th {
+  border: 2px solid #224b4b;
+  padding-left: 5px;
+  padding-right: 5px;
 }

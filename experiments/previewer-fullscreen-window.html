@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>A previewer in a fullscreen window</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <link rel="stylesheet" href="immutable.css">
+    <link rel="stylesheet" href="window.css">
+    <link rel="stylesheet" href="panel.css">
+    <link rel="stylesheet" href="previewer.css">
+  </head>
+  <body class="overflow-hidden">
+    <p>A previewer in a fullscreen window with default styles applied:</p>
+
+    <div class="window window--fullscreen window--default">
+      <div class="window__frame">
+        <div class="window__header">
+          <div class="window__icon">
+            <i class="fab fa-html5"></i>
+          </div>
+
+          <h1 class="window__title">Previewer</h1>
+
+          <div class="window__resizer">
+            <i class="fas fa-compress" title="Minimize"></i>
+          </div>
+        </div>
+        <div class="window__body">
+          <div class="panel">
+            <div class="panel__item previewer previewer--default">
+<h1 id="welcome-to-my-elm-markdown-previewer-">Welcome to my Elm Markdown Previewer!</h1>
+<h2 id="this-is-a-sub-heading-">This is a sub-heading...</h2>
+<h3 id="and-here-s-some-other-cool-stuff-">And here's some other cool stuff:</h3>
+<p>Here's some code, <code>&lt;div&gt;&lt;/div&gt;</code>, between 2 backticks.</p>
+<pre><code><span class="hljs-comment">-- This is multi-line code:</span>
+
+<span class="hljs-title">head</span> : <span class="hljs-type">List</span> a -&gt; <span class="hljs-type">Maybe</span> a
+<span class="hljs-title">head</span> list =
+  <span class="hljs-keyword">case</span> list <span class="hljs-keyword">of</span>
+    [] -&gt;
+      <span class="hljs-type">Nothing</span>
+
+    (x:_) -&gt;
+      <span class="hljs-type">Just</span> x
+</code></pre><p>You can also make text <strong>bold</strong>... whoa!
+Or <em>italic</em>.
+Or... wait for it... <strong><em>both!</em></strong>
+And feel free to go crazy <del>crossing stuff out</del>.</p>
+<p>There's also <a href="https://learn.freecodecamp.org/front-end-libraries/front-end-libraries-projects/build-a-markdown-previewer/">links</a>, and</p>
+<blockquote>
+<p>Block Quotes!</p>
+</blockquote>
+<p>And if you want to get really crazy, even tables:</p>
+<table>
+<thead>
+<tr>
+<th>Wild Header</th>
+<th>Crazy Header</th>
+<th>Another Header?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Your content can</td>
+<td>be here, and it</td>
+<td>can be here....</td>
+</tr>
+<tr>
+<td>And here.</td>
+<td>Okay.</td>
+<td>I think we get it.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>And of course there are lists.<ul>
+<li>Some are bulleted.<ul>
+<li>With different indentation levels.<ul>
+<li>That look like this.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>And there are numbererd lists too.</li>
+<li>Use just 1s if you want!</li>
+<li>But the list goes on...</li>
+<li>Even if you use dashes or asterisks.</li>
+<li>And last but not least, let's not forget embedded images:</li>
+</ol>
+<p><img src="https://tinyurl.com/y57bom6e" alt="Elm Logo"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

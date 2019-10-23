@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>An editor</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <link rel="stylesheet" href="panel.css">
+    <link rel="stylesheet" href="editor.css">
+
+    <style>
+      .box {
+        border: 1px dotted #aaa;
+      }
+
+      .box--tall {
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>An empty editor:</p>
+
+    <div class="box">
+      <div class="panel">
+        <textarea class="panel__item editor"></textarea>
+      </div>
+    </div>
+
+    <p>A non-empty editor:</p>
+
+    <div class="box">
+      <div class="panel">
+        <textarea class="panel__item editor">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
+      </div>
+    </div>
+
+    <p>A non-empty editor with a short min-height:</p>
+
+    <div class="box">
+      <div class="panel panel--short">
+        <textarea class="panel__item editor">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
+      </div>
+    </div>
+
+    <p>A non-empty editor in a tall box:</p>
+
+    <div class="box box--tall">
+      <div class="panel">
+        <textarea class="panel__item editor">Notice how the editor takes the height of the tall box and can't be changed since the height of the tall box is fixed. Exactly what we want.</textarea>
+      </div>
+    </div>
+
+    <p>You can't resize the following editor:</p>
+
+    <div class="box">
+      <div class="panel">
+        <textarea class="panel__item editor editor--static">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
+      </div>
+    </div>
+
+    <h2>Default styles</h2>
+
+    <p>An empty editor:</p>
+
+    <div class="box">
+      <div class="panel">
+        <textarea class="panel__item editor editor--default"></textarea>
+      </div>
+    </div>
+
+    <p>A non-empty editor:</p>
+
+    <div class="box">
+      <div class="panel panel--short">
+        <textarea class="panel__item editor editor--default">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
+      </div>
+    </div>
+  </body>
+</html>

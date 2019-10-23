@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>A window</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <link rel="stylesheet" href="window.css">
+
+    <style>
+      .box {
+        padding: 5px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>An empty window:</p>
+
+    <div class="window">
+      <div class="window__frame">
+        <div class="window__header">
+          <div class="window__icon">
+            <i class="fas fa-square"></i>
+          </div>
+
+          <h1 class="window__title">A window</h1>
+
+          <div class="window__resizer">
+            <i class="fas fa-expand" title="Fullscreen"></i>
+          </div>
+        </div>
+        <div class="window__body window__body--empty"></div>
+      </div>
+    </div>
+
+    <p>A non-empty window:</p>
+
+    <div class="window">
+      <div class="window__frame">
+        <div class="window__header">
+          <div class="window__icon">
+            <i class="fas fa-square"></i>
+          </div>
+
+          <h1 class="window__title">A window</h1>
+
+          <div class="window__resizer">
+            <i class="fas fa-expand" title="Fullscreen"></i>
+          </div>
+        </div>
+        <div class="window__body">
+          <div class="box">
+            <h1>Introduction</h1>
+            <p>Hello, world!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

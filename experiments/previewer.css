@@ -1,0 +1,51 @@
+/** Structure **/
+
+.previewer {
+  padding: 5px 10px;
+}
+
+/** Raw HTML styles **/
+
+.previewer blockquote {
+  margin-left: 25px;
+  border-left: 3px solid #224b4b;
+  padding-left: 5px;
+  color: #224b4b;
+}
+
+.previewer code {
+  padding: 1px 4px 2px 4px;
+  font-size: 12px;
+  font-weight: bold;
+  background: white;
+}
+
+.previewer pre {
+  padding: 5px 0 5px 5px;
+  background: white;
+}
+
+.previewer h1 {
+  border-bottom: 2px solid #224b4b;
+}
+
+.previewer h2 {
+  border-bottom: 1px solid #224b4b;
+}
+
+.previewer table {
+  border-collapse: collapse;
+}
+
+.previewer td,
+.previewer th {
+  border: 2px solid #224b4b;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/** Theme **/
+
+.previewer--default {
+  background-color: #c0d8d8;
+}

@@ -1,0 +1,25 @@
+/** Structure **/
+
+/*textarea*/.editor {
+  margin: 0;
+  border: 0;
+  padding: 10px;
+
+  overflow: auto;
+
+  resize: vertical;
+}
+
+/** Modifiers **/
+
+.editor--static {
+  resize: none;
+}
+
+/** Theme **/
+
+.editor--default {
+  font-size: 1rem;
+  line-height: 1.25;
+  background-color: #c0d8d8;
+}

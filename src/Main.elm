@@ -22,12 +22,19 @@ main =
 
 type alias Model =
   { content : String
+  , fullscreen : Maybe Window
   }
+
+
+type Window
+  = Editor
+  | Previewer
 
 
 init : Model
 init =
   { content = defaultContent
+  , fullscreen = Nothing
   }
 
 
@@ -36,6 +43,8 @@ init =
 
 type Msg
   = ChangedContent String
+  | ClickedMinimize
+  | ClickedFullscreen Window
 
 
 update : Msg -> Model -> Model
@@ -44,38 +53,45 @@ update msg model =
     ChangedContent newContent ->
       { model | content = newContent }
 
+    ClickedMinimize ->
+      { model | fullscreen = Nothing }
+
+    ClickedFullscreen window ->
+      { model | fullscreen = Just window }
+
 
 -- VIEW
 
 
 view : Model -> Html Msg
-view { content } =
+view { content, fullscreen } =
   div []
-    [ viewEditorWindow content
-    , viewPreviewerWindow content
+    [ viewEditorWindow content (fullscreen == Just Editor)
+    , viewPreviewerWindow content (fullscreen == Just Previewer)
     , viewAttribution
     ]
 
 
 type Icon
-  = Edit
+  = Compress
+  | Edit
   | Expand
   | Html5
 
 
-viewEditorWindow : String -> Html Msg
-viewEditorWindow content =
+viewEditorWindow : String -> Bool -> Html Msg
+viewEditorWindow content isFullscreen =
   div [ class "container container--small" ]
       [ viewEditor content
-          |> viewWindow Edit "Editor"
+          |> viewWindow Editor Edit "Editor" isFullscreen
       ]
 
 
-viewPreviewerWindow : String -> Html msg
-viewPreviewerWindow content =
+viewPreviewerWindow : String -> Bool -> Html Msg
+viewPreviewerWindow content isFullscreen =
   div [ class "container container--medium" ]
       [ viewPreviewer content
-          |> viewWindow Html5 "Previewer"
+          |> viewWindow Previewer Html5 "Previewer" isFullscreen
       ]
 
 
@@ -109,17 +125,31 @@ viewPreviewer content =
     ]
 
 
-viewWindow : Icon -> String -> Html msg -> Html msg
-viewWindow icon title body =
-  div [ class "window window--default" ]
+viewWindow : Window -> Icon -> String -> Bool -> Html Msg -> Html Msg
+viewWindow window icon title isFullscreen body =
+  div
+    [ class "window window--default"
+    , A.classList [ ("window--fullscreen", isFullscreen) ]
+    ]
     [ div [ class "window__frame" ]
         [ div [ class "window__header" ]
             [ div [ class "window__icon" ]
                 [ viewIcon icon ]
             , h1 [ class "window__title" ]
                 [ text title ]
-            , div [ class "window__resizer" ]
-                [ viewIconWithTitle Expand "Fullscreen" ]
+            , div
+                [ class "window__resizer"
+                , E.onClick <|
+                    if isFullscreen then
+                      ClickedMinimize
+                    else
+                      ClickedFullscreen window
+                ]
+                [ if isFullscreen then
+                    viewIconWithTitle Compress "Minimize"
+                  else
+                    viewIconWithTitle Expand "Fullscreen"
+                ]
             ]
         , div [ class "window__body" ] [ body ]
         ]
@@ -139,6 +169,9 @@ viewIconWithTitle icon title =
 iconClass : Icon -> String
 iconClass icon =
   case icon of
+    Compress ->
+      "fas fa-compress"
+
     Edit ->
       "fas fa-edit"
 

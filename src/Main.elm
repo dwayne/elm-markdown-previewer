@@ -1,21 +1,55 @@
 module Main exposing (main)
 
 
+import Browser
 import Html exposing (Html, a, div, footer, h1, i, p, text, textarea)
 import Html.Attributes as A exposing (class)
+import Html.Events as E
 import Markdown
 
 
-main : Html msg
+main : Program () Model Msg
 main =
-  view defaultContent
+  Browser.sandbox
+    { init = init
+    , update = update
+    , view = view
+    }
+
+
+-- MODEL
+
+
+type alias Model =
+  { content : String
+  }
+
+
+init : Model
+init =
+  { content = defaultContent
+  }
+
+
+-- UPDATE
+
+
+type Msg
+  = ChangedContent String
+
+
+update : Msg -> Model -> Model
+update msg model =
+  case msg of
+    ChangedContent newContent ->
+      { model | content = newContent }
 
 
 -- VIEW
 
 
-view : String -> Html msg
-view content =
+view : Model -> Html Msg
+view { content } =
   div []
     [ viewEditorWindow content
     , viewPreviewerWindow content
@@ -29,7 +63,7 @@ type Icon
   | Html5
 
 
-viewEditorWindow : String -> Html msg
+viewEditorWindow : String -> Html Msg
 viewEditorWindow content =
   div [ class "container container--small" ]
       [ viewEditor content
@@ -55,11 +89,13 @@ viewAttribution =
     ]
 
 
-viewEditor : String -> Html msg
+viewEditor : String -> Html Msg
 viewEditor content =
   div [ class "panel panel--short" ]
     [ textarea
-        [ class "panel__item editor editor--default" ]
+        [ class "panel__item editor editor--default"
+        , E.onInput ChangedContent
+        ]
         [ text content ]
     ]
 

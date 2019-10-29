@@ -1,4 +1,4 @@
-module Main exposing (main)
+port module Main exposing (main)
 
 
 import Browser
@@ -10,9 +10,10 @@ import Markdown
 
 main : Program () Model Msg
 main =
-  Browser.sandbox
+  Browser.element
     { init = init
     , update = update
+    , subscriptions = always Sub.none
     , view = view
     }
 
@@ -31,11 +32,13 @@ type Window
   | Previewer
 
 
-init : Model
-init =
-  { content = defaultContent
-  , fullscreen = Nothing
-  }
+init : () -> (Model, Cmd msg)
+init _ =
+  ( { content = defaultContent
+    , fullscreen = Nothing
+    }
+  , Cmd.none
+  )
 
 
 -- UPDATE
@@ -47,17 +50,29 @@ type Msg
   | ClickedFullscreen Window
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> (Model, Cmd msg)
 update msg model =
   case msg of
     ChangedContent newContent ->
-      { model | content = newContent }
+      ( { model | content = newContent }
+      , Cmd.none
+      )
 
     ClickedMinimize ->
-      { model | fullscreen = Nothing }
+      ( { model | fullscreen = Nothing }
+      , onFullscreen "leave"
+      )
 
     ClickedFullscreen window ->
-      { model | fullscreen = Just window }
+      ( { model | fullscreen = Just window }
+      , onFullscreen "enter"
+      )
+
+
+-- PORTS
+
+
+port onFullscreen : String -> Cmd msg
 
 
 -- VIEW

@@ -13,8 +13,16 @@
     <div id="markdown-previewer"></div>
     <script src="markdown-previewer.js"></script>
     <script>
-      Elm.Main.init({
+      var app = Elm.Main.init({
         node: document.getElementById("markdown-previewer")
+      });
+
+      app.ports.onFullscreen.subscribe(function (event) {
+        if (event === 'enter') {
+          document.body.classList.add('overflow-hidden')
+        } else if (event === 'leave') {
+          document.body.classList.remove('overflow-hidden')
+        }
       });
     </script>
   </body>

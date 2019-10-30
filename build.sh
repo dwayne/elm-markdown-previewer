@@ -1,3 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-elm make src/Main.elm --output=markdown-previewer.js --debug
+set -e
+
+js="markdown-previewer.js"
+
+elm make --debug --output=$js src/Main.elm

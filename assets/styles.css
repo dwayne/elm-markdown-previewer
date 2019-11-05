@@ -1,116 +1,112 @@
+/* #General */
+
 @import url('https://fonts.googleapis.com/css?family=Russo+One');
 
-/* Immutable */
-
-.mr5 {
-  margin-right: 5px;
+html {
+  font-size: 16px;
 }
-
-.mb10 {
-  margin-bottom: 10px;
-}
-
-.hide {
-  display: none;
-}
-
-.flex {
-  display: flex;
-}
-
-.push-right {
-  margin-left: auto;
-}
-
-.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Custom */
 
 body {
-  margin: 10px 0;
+  margin: 10px;
   overflow-y: scroll;
-  background-color: #87b5b5;
 }
 
-.small-window {
-  width: 600px;
+
+
+
+/* #Blocks */
+
+/* ##Attribution */
+
+.attribution {
+  margin: 0;
+  font-size: 0.8rem;
+  text-align: center;
 }
 
-.large-window {
-  width: 800px;
+
+
+
+/* ##Container */
+
+.container {
+  margin: 0 auto 10px auto;
 }
 
-.toolbar {
-  border: 1px solid #333;
-  padding: 4px;
-
-  font-family: Russo One;
-  font-size: 15px;
-
-  background-color: #4aa3a3;
+@media (min-width: 620px) {
+  .container--small {
+    width: 600px;
+  }
 }
 
-.resizer:hover {
-  color: #57e2b1;
-  cursor: pointer;
+@media (min-width: 820px) {
+  .container--medium {
+     width: 800px;
+  }
 }
 
-.editor {
-  box-sizing: border-box;
 
-  width: 100%;
-  min-height: 250px;
 
+
+/* ##Editor */
+
+/*textarea*/.editor {
+  margin: 0;
+  border: 0;
+  padding: 10px;
+  overflow: auto;
   resize: vertical;
-
-  border: 1px solid #333;
-  border-top: none;
-
-  padding-top: 5px;
-  padding-left: 5px;
-
-  background-color: #c0d8d8;
 }
+
+.editor--static {
+  resize: none;
+}
+
+
+
+
+/* ##Panel */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.panel__item {
+  flex-grow: 1;
+}
+
+.panel--short {
+  min-height: 350px;
+}
+
+
+
+
+/* ##Previewer */
 
 .previewer {
-  border: 1px solid #333;
-  border-top: none;
-
   padding: 5px 10px;
-
-  background-color: #c0d8d8;
 }
-
-.maximized {
-  width: 75%;
-}
-
-.maximized .editor {
-  min-height: 500px;
-}
-
-/* Markdown */
 
 .previewer blockquote {
-  border-left: 3px solid #224B4B;
-  color: #224B4B;
-  padding-left: 5px;
   margin-left: 25px;
+  border-left: 3px solid #224b4b;
+  padding-left: 5px;
+  color: #224b4b;
 }
 
 .previewer code {
-  background: white;
   padding: 1px 4px 2px 4px;
   font-size: 12px;
   font-weight: bold;
+  background: white;
 }
 
 .previewer pre {
-  background: white;
   padding: 5px 0 5px 5px;
+  background: white;
 }
 
 .previewer h1 {
@@ -130,4 +126,129 @@ body {
   border: 2px solid #224b4b;
   padding-left: 5px;
   padding-right: 5px;
+}
+
+
+
+
+/* ##Window */
+
+.window {}
+
+.window__frame {}
+
+.window__header {
+  display: flex;
+  align-items: center;
+  border: 1px solid;
+  padding: 5px 10px;
+}
+
+.window__icon {
+  margin-right: 5px;
+}
+
+/*h1*/.window__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.window__resizer {
+  margin-left: auto;
+}
+
+.window__resizer:hover {
+  cursor: pointer;
+}
+
+.window__body {
+  border: 1px solid;
+  border-top: none;
+  overflow: auto;
+}
+
+.window__body--empty {
+  border-width: 0;
+}
+
+.window--fullscreen::before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.window--fullscreen .window__frame {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  padding: 10px;
+}
+
+.window--fullscreen .window__body {
+  flex-grow: 1;
+}
+
+.window--fullscreen .window__body--empty {
+  border-width: 1px;
+}
+
+
+
+
+/* #Immutable */
+
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+
+
+
+/* #Theme */
+
+body {
+  background-color: #87b5b5;
+}
+
+.editor--default {
+  font-size: 1rem;
+  line-height: 1.25;
+  background-color: #c0d8d8;
+}
+
+.previewer--default {
+  background-color: #c0d8d8;
+}
+
+.window--default .window__header {
+  border-color: #333;
+  background-color: #4aa3a3;
+}
+
+.window--default .window__title {
+  font-family: "Russo One";
+  font-size: 0.95rem;
+}
+
+.window--default .window__resizer:hover {
+  color: #57e2b1;
+}
+
+.window--default .window__body {
+  border-color: #333;
+}
+
+.window--default.window--fullscreen::before {
+  background-color: #87b5b5;
 }

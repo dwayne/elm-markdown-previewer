@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -6,19 +6,23 @@
 
     <title>Markdown Previewer</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
     <link rel="stylesheet" href="assets/styles.css">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <link rel="stylesheet" href="assets/highlight/github.css">
-    <script src="assets/highlight/highlight.min.js"></script>
   </head>
   <body>
-    <div id="app"></div>
-    <script src="app.js"></script>
+    <div id="markdown-previewer"></div>
+    <script src="markdown-previewer.js"></script>
     <script>
-      Elm.Main.init({
-        node: document.getElementById("app")
+      var app = Elm.Main.init({
+        node: document.getElementById("markdown-previewer")
+      });
+
+      app.ports.onFullscreen.subscribe(function (event) {
+        if (event === 'enter') {
+          document.body.classList.add('overflow-hidden')
+        } else if (event === 'leave') {
+          document.body.classList.remove('overflow-hidden')
+        }
       });
     </script>
   </body>

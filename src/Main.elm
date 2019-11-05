@@ -97,7 +97,7 @@ type Icon
 viewEditorWindow : String -> Bool -> Html Msg
 viewEditorWindow content isFullscreen =
   div [ class "container container--small" ]
-      [ viewEditor content
+      [ viewEditor content isFullscreen
           |> viewWindow Editor Edit "Editor" isFullscreen
       ]
 
@@ -120,11 +120,12 @@ viewAttribution =
     ]
 
 
-viewEditor : String -> Html Msg
-viewEditor content =
+viewEditor : String -> Bool -> Html Msg
+viewEditor content isStatic =
   div [ class "panel panel--short" ]
     [ textarea
         [ class "panel__item editor editor--default"
+        , A.classList [ ("editor--static", isStatic) ]
         , E.onInput ChangedContent
         ]
         [ text content ]

@@ -7,4 +7,4 @@ This Elm app is based on [freeCodeCamp](https://www.freecodecamp.com/)'s
 front-end project. Its design is taken from
 [this example](https://codepen.io/freeCodeCamp/full/GrZVVO) CodePen app.
 
-Check out the [demo](https://elegantelm.github.io/markdown-previewer/).
+Check out the [demo](https://dwayne.github.io/elm-markdown-previewer/).

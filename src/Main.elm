@@ -115,7 +115,7 @@ viewAttribution =
   footer []
     [ p [ class "attribution" ]
         [ text "by "
-        , a [ A.href "https://www.elegantelm.dev" ] [ text "Elegant Elm" ]
+        , a [ A.href "https://www.dwaynecrooks.com" ] [ text "Dwayne Crooks" ]
         ]
     ]
 

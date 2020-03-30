@@ -2,7 +2,7 @@ port module Main exposing (main)
 
 
 import Browser
-import Html exposing (Html, a, div, footer, h1, i, p, text, textarea)
+import Html exposing (Html, a, button, div, footer, h2, i, p, text, textarea)
 import Html.Attributes as A exposing (class)
 import Html.Events as E
 import Markdown
@@ -12,9 +12,9 @@ main : Program () Model Msg
 main =
   Browser.element
     { init = init
-    , update = update
-    , subscriptions = always Sub.none
     , view = view
+    , subscriptions = always Sub.none
+    , update = update
     }
 
 
@@ -23,7 +23,7 @@ main =
 
 type alias Model =
   { content : String
-  , fullscreen : Maybe Window
+  , maximized : Maybe Window
   }
 
 
@@ -35,7 +35,7 @@ type Window
 init : () -> (Model, Cmd msg)
 init _ =
   ( { content = defaultContent
-    , fullscreen = Nothing
+    , maximized = Nothing
     }
   , Cmd.none
   )
@@ -46,8 +46,8 @@ init _ =
 
 type Msg
   = ChangedContent String
-  | ClickedMinimize
-  | ClickedFullscreen Window
+  | Maximized Window
+  | Minimized
 
 
 update : Msg -> Model -> (Model, Cmd msg)
@@ -58,118 +58,129 @@ update msg model =
       , Cmd.none
       )
 
-    ClickedMinimize ->
-      ( { model | fullscreen = Nothing }
-      , onFullscreen "leave"
+    Maximized window ->
+      ( { model | maximized = Just window }
+      , onEvent "maximize"
       )
 
-    ClickedFullscreen window ->
-      ( { model | fullscreen = Just window }
-      , onFullscreen "enter"
+    Minimized ->
+      ( { model | maximized = Nothing }
+      , onEvent "minimize"
       )
 
 
 -- PORTS
 
 
-port onFullscreen : String -> Cmd msg
+port onEvent : String -> Cmd msg
 
 
 -- VIEW
 
 
 view : Model -> Html Msg
-view { content, fullscreen } =
+view { content, maximized } =
   div []
-    [ viewEditorWindow content (fullscreen == Just Editor)
-    , viewPreviewerWindow content (fullscreen == Just Previewer)
-    , viewAttribution
+    [ div [ class "container container--width--small" ]
+        [ viewEditorWindow (maximized == Just Editor) content ]
+    , div [ class "container container--width--medium" ]
+        [ viewPreviewerWindow (maximized == Just Previewer) content ]
+    , footer []
+        [ viewAttribution ]
+    ]
+
+
+viewEditorWindow : Bool -> String -> Html Msg
+viewEditorWindow isMaximized content =
+  viewWindow
+    { icon = Edit
+    , title = "Editor"
+    , isScrollable = False
+    , maximize = Maximized Editor
+    }
+    isMaximized
+    <| textarea
+         [ class "editor editor--theme--forest window__content"
+         , A.classList [ ("editor--locked", isMaximized) ]
+         , E.onInput ChangedContent
+         ]
+         [ text content ]
+
+
+viewPreviewerWindow : Bool -> String -> Html Msg
+viewPreviewerWindow isMaximized content =
+  viewWindow
+    { icon = Html5
+    , title = "Previewer"
+    , isScrollable = True
+    , maximize = Maximized Previewer
+    }
+    isMaximized
+    <| div [ class "previewer previewer--theme--forest window__content" ]
+         [ toHtml content "previewer__markdown" ]
+
+
+toHtml : String -> String -> Html msg
+toHtml content className =
+  Markdown.toHtmlWith
+    { githubFlavored = Just { tables = True, breaks = False }
+    , defaultHighlighting = Just "elm"
+    , sanitize = True
+    , smartypants = False
+    }
+    [ class className ]
+    content
+
+
+type alias Config msg =
+  { icon : Icon
+  , title : String
+  , isScrollable : Bool
+  , maximize : msg
+  }
+
+
+viewWindow : Config Msg -> Bool -> Html Msg -> Html Msg
+viewWindow config isMaximized body =
+  div
+    [ class "window window--theme--forest"
+    , A.classList [ ("window--maximized", isMaximized) ]
+    ]
+    [ div [ class "window__frame" ]
+        [ div [ class "window__header" ]
+            [ div [ class "window__icon" ] [ viewIcon config.icon ]
+            , h2 [ class "window__title" ] [ text config.title ]
+            , if isMaximized then
+                button
+                  [ class "window__button"
+                  , E.onClick Minimized
+                  ]
+                  [ viewIconWithTitle Compress "Click to minimize" ]
+              else
+                button
+                  [ class "window__button"
+                  , E.onClick config.maximize
+                  ]
+                  [ viewIconWithTitle Expand "Click to maximize" ]
+            ]
+        , div
+            [ class "window__body"
+            , A.classList
+                [ ("window__body--scrollable"
+                  , config.isScrollable && isMaximized
+                  )
+                ]
+            ]
+            [ body ]
+        ]
     ]
 
 
 type Icon
-  = Compress
-  | Edit
-  | Expand
+  = Edit
   | Html5
-
-
-viewEditorWindow : String -> Bool -> Html Msg
-viewEditorWindow content isFullscreen =
-  div [ class "container container--small" ]
-      [ viewEditor content isFullscreen
-          |> viewWindow Editor Edit "Editor" isFullscreen
-      ]
-
-
-viewPreviewerWindow : String -> Bool -> Html Msg
-viewPreviewerWindow content isFullscreen =
-  div [ class "container container--medium" ]
-      [ viewPreviewer content
-          |> viewWindow Previewer Html5 "Previewer" isFullscreen
-      ]
-
-
-viewAttribution : Html msg
-viewAttribution =
-  footer []
-    [ p [ class "attribution" ]
-        [ text "by "
-        , a [ A.href "https://www.dwaynecrooks.com" ] [ text "Dwayne Crooks" ]
-        ]
-    ]
-
-
-viewEditor : String -> Bool -> Html Msg
-viewEditor content isStatic =
-  div [ class "panel panel--short" ]
-    [ textarea
-        [ class "panel__item editor editor--default"
-        , A.classList [ ("editor--static", isStatic) ]
-        , E.onInput ChangedContent
-        ]
-        [ text content ]
-    ]
-
-
-viewPreviewer : String -> Html msg
-viewPreviewer content =
-  div [ class "panel panel--short" ]
-    [ div
-        [ class "panel__item previewer previewer--default" ]
-        [ toHtml content ]
-    ]
-
-
-viewWindow : Window -> Icon -> String -> Bool -> Html Msg -> Html Msg
-viewWindow window icon title isFullscreen body =
-  div
-    [ class "window window--default"
-    , A.classList [ ("window--fullscreen", isFullscreen) ]
-    ]
-    [ div [ class "window__frame" ]
-        [ div [ class "window__header" ]
-            [ div [ class "window__icon" ]
-                [ viewIcon icon ]
-            , h1 [ class "window__title" ]
-                [ text title ]
-            , div
-                [ class "window__resizer"
-                , E.onClick <|
-                    if isFullscreen then
-                      ClickedMinimize
-                    else
-                      ClickedFullscreen window
-                ]
-                [ if isFullscreen then
-                    viewIconWithTitle Compress "Minimize"
-                  else
-                    viewIconWithTitle Expand "Fullscreen"
-                ]
-            ]
-        , div [ class "window__body" ] [ body ]
-        ]
-    ]
+  | Expand
+  | Compress
 
 
 viewIcon : Icon -> Html msg
@@ -185,28 +196,25 @@ viewIconWithTitle icon title =
 iconClass : Icon -> String
 iconClass icon =
   case icon of
-    Compress ->
-      "fas fa-compress"
-
     Edit ->
       "fas fa-edit"
-
-    Expand ->
-      "fas fa-expand"
 
     Html5 ->
       "fab fa-html5"
 
+    Expand ->
+      "fas fa-expand"
 
-toHtml : String -> Html msg
-toHtml =
-  Markdown.toHtmlWith
-    { githubFlavored = Just { tables = True, breaks = False }
-    , defaultHighlighting = Just "elm"
-    , sanitize = True
-    , smartypants = False
-    }
-    []
+    Compress ->
+      "fas fa-compress"
+
+
+viewAttribution : Html msg
+viewAttribution =
+  p [ class "attribution" ]
+    [ text "by "
+    , a [ A.href "https://www.dwaynecrooks.com" ] [ text "Dwayne Crooks" ]
+    ]
 
 
 -- DATA

@@ -222,7 +222,7 @@ viewAttribution =
 
 defaultContent : String
 defaultContent =
-  """# Welcome to my Elm Markdown Previewer!
+  """# An Elm Markdown Previewer!
 
 ## This is a sub-heading...
 ### And here's some other cool stuff:
@@ -236,7 +236,7 @@ head list =
   case list of
     [] ->
       Nothing
-    (x:_) ->
+    (x::_) ->
       Just x
 ```
 

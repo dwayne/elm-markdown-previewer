@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Markdown Previewer | Minimized editor window</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <link rel="stylesheet" href="/index.css">
+  </head>
+  <body>
+    <h1>Minimized editor window</h1>
+
+    <h2>No content</h2>
+
+    <div class="window">
+      <div class="window__frame">
+        <div class="window__header">
+          <div class="window__icon">
+            <i class="fas fa-edit"></i>
+          </div>
+          <h2 class="window__title">Editor</h2>
+          <button class="window__button">
+            <i class="fas fa-expand"></i>
+          </button>
+        </div>
+
+        <div class="window__body">
+          <textarea class="editor"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <h2>A little content</h2>
+
+    <div class="window">
+      <div class="window__frame">
+        <div class="window__header">
+          <div class="window__icon">
+            <i class="fas fa-edit"></i>
+          </div>
+          <h2 class="window__title">Editor</h2>
+          <button class="window__button">
+            <i class="fas fa-expand"></i>
+          </button>
+        </div>
+
+        <div class="window__body">
+          <textarea class="editor"># An Elm Markdown Previewer!</textarea>
+        </div>
+      </div>
+    </div>
+
+    <h2>A lot of content</h2>
+
+    <div class="window">
+      <div class="window__frame">
+        <div class="window__header">
+          <div class="window__icon">
+            <i class="fas fa-edit"></i>
+          </div>
+          <h2 class="window__title">Editor</h2>
+          <button class="window__button">
+            <i class="fas fa-expand"></i>
+          </button>
+        </div>
+
+        <div class="window__body">
+          <textarea class="editor"># An Elm Markdown Previewer!
+
+## This is a sub-heading...
+### And here's some other cool stuff:
+
+Here's some code, `<div></div>`, between 2 backticks.
+
+```
+-- This is multi-line code:
+head : List a -> Maybe a
+head list =
+  case list of
+    [] ->
+      Nothing
+    (x::_) ->
+      Just x
+```
+
+You can also make text **bold**... whoa!
+Or _italic_.
+Or... wait for it... **_both!_**
+And feel free to go crazy ~~crossing stuff out~~.
+
+There's also [links](https://learn.freecodecamp.org/front-end-libraries/front-end-libraries-projects/build-a-markdown-previewer/), and
+> Block Quotes!
+
+And if you want to get really crazy, even tables:
+
+Wild Header | Crazy Header | Another Header?
+------------ | ------------- | -------------
+Your content can | be here, and it | can be here....
+And here. | Okay. | I think we get it.
+
+- And of course there are lists.
+  - Some are bulleted.
+     - With different indentation levels.
+        - That look like this.
+
+1. And there are numbererd lists too.
+1. Use just 1s if you want!
+1. But the list goes on...
+- Even if you use dashes or asterisks.
+* And last but not least, let's not forget embedded images:
+
+![Elm Logo](https://tinyurl.com/y57bom6e)</textarea>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

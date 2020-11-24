@@ -1,0 +1,54 @@
+/** Window **/
+
+.window__header {
+  border: 1px solid;
+  padding: 5px 10px;
+
+  display: flex;
+  align-items: center;
+}
+
+.window__icon {
+  margin-right: 5px;
+}
+
+/*h2*/.window__title {
+  margin: 0;
+
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+/*button*/.window__button {
+  border: 0;
+  padding: 0;
+  color: inherit;
+  background-color: inherit;
+
+  margin-left: auto;
+}
+
+.window__button:hover {
+  cursor: pointer;
+}
+
+.window__body {
+  border: 1px solid;
+  border-top-width: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/** Editor **/
+
+/*textarea*/.editor {
+  margin: 0;
+  border: 0;
+
+  padding: 10px;
+  font-size: 1rem;
+  line-height: 1.25;
+
+  resize: vertical;
+}

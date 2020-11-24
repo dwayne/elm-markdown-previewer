@@ -5,25 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Markdown Previewer</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-    <link rel="stylesheet" href="index.css">
   </head>
-  <body class="theme--forest">
-    <div id="markdown-previewer"></div>
-    <script src="markdown-previewer.js"></script>
-    <script>
-      var app = Elm.Main.init({
-        node: document.getElementById("markdown-previewer")
-      });
-
-      app.ports.onEvent.subscribe(function (event) {
-        if (event === 'maximize') {
-          document.body.classList.add('overflow-hidden')
-        } else if (event === 'minimize') {
-          document.body.classList.remove('overflow-hidden')
-        }
-      })
-    </script>
+  <body>
+    <p>Hello, world!</p>
   </body>
 </html>

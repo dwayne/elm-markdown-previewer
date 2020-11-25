@@ -40,6 +40,27 @@
   flex-direction: column;
 }
 
+.window--maximized .window__frame {
+  background-color: mistyrose;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  padding: 10px;
+}
+
+.window--maximized .window__frame {
+  display: flex;
+  flex-direction: column;
+}
+
+.window--maximized .window__body {
+  flex-grow: 1;
+}
+
 /** Editor **/
 
 /*textarea*/.editor {

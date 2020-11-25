@@ -40,6 +40,10 @@
   flex-direction: column;
 }
 
+.window__content {
+  flex-grow: 1;
+}
+
 .window--maximized .window__frame {
   background-color: mistyrose;
 
@@ -72,4 +76,8 @@
   line-height: 1.25;
 
   resize: vertical;
+}
+
+.editor--locked {
+  resize: none;
 }

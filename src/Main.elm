@@ -4,10 +4,11 @@ module Main exposing (main)
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events as E
 import Markdown
 
 
-main : Program () Model msg
+main : Program () Model Msg
 main =
   Browser.sandbox
     { init = init
@@ -31,15 +32,21 @@ init =
 -- UPDATE
 
 
-update : msg -> Model -> Model
-update msg model =
-  model
+type Msg
+  = EnteredMarkdown String
+
+
+update : Msg -> Model -> Model
+update msg _ =
+  case msg of
+    EnteredMarkdown content ->
+      content
 
 
 -- VIEW
 
 
-view : Model -> Html msg
+view : Model -> Html Msg
 view content =
   div []
     [ div [ class "container container--width--small" ]
@@ -59,7 +66,7 @@ view content =
     ]
 
 
-viewMinimizedEditorWindow : String -> Html msg
+viewMinimizedEditorWindow : String -> Html Msg
 viewMinimizedEditorWindow content =
   div [ class "window window--theme--forest" ]
     [ div [ class "window__frame" ]
@@ -77,7 +84,11 @@ viewMinimizedEditorWindow content =
                 ]
             ]
         , div [ class "window__body" ]
-            [ textarea [ class "editor window__content" ] [ text content ]
+            [ textarea
+                [ class "editor window__content"
+                , E.onInput EnteredMarkdown
+                ]
+                [ text content ]
             ]
         ]
     ]

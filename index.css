@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Russo+One');
+
 /** Window **/
 
 .window__header {
@@ -127,4 +129,32 @@
   border: 2px solid #224b4b;
   padding-left: 5px;
   padding-right: 5px;
+}
+
+/** Theme **/
+
+.window--theme--forest .window__header {
+  border-color: #333;
+  background-color: #4aa3a3;
+}
+
+.window--theme--forest .window__title {
+  font-family: "Russo One";
+  font-size: 0.95rem;
+}
+
+.window--theme--forest .window__button:hover {
+  color: #57e2b1;
+}
+
+.window--theme--forest .window__body {
+  border-color: #333;
+}
+
+.window--theme--forest .window__content {
+  min-height: 330px;
+}
+
+.editor--theme--forest {
+  background-color: #c0d8d8;
 }

@@ -16,7 +16,7 @@
     </div>
 
     <div class="window__body">
-      <textarea class="editor editor--theme--forest window__content">
+      <textarea class="editor window__content">
         <!-- Markdown goes here. -->
       </textarea>
     </div>
@@ -48,7 +48,7 @@ To go from the minimized editor window to the maximized editor window you need t
     </div>
 
     <div class="window__body">
-      <textarea class="editor editor--locked editor--theme--forest window__content">
+      <textarea class="editor editor--locked window__content">
         <!-- Markdown goes here. -->
       </textarea>
     </div>
@@ -72,7 +72,7 @@ To go from the minimized editor window to the maximized editor window you need t
     </div>
 
     <div class="window__body">
-      <div class="previewer previewer--theme--forest window__content">
+      <div class="previewer window__content">
         <div class="previewer__html">
           <!-- HTML goes here. -->
         </div>
@@ -105,7 +105,7 @@ To go from the minimized previewer window to the maximized previewer window you 
     </div>
 
     <div class="window__body">
-      <div class="previewer previewer--theme--forest window__content">
+      <div class="previewer window__content">
         <div class="previewer__html">
           <!-- HTML goes here. -->
         </div>

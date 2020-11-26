@@ -9,6 +9,10 @@ body {
   background-color: #87b5b5;
 }
 
+.overflow-hidden {
+  overflow: hidden;
+}
+
 .container {
   margin: 0 auto 10px auto;
 }

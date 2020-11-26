@@ -21,36 +21,49 @@ main =
 
 
 type alias Model =
-  String
+  { content : String
+  , maximized : Maybe Window
+  }
+
+
+type Window
+  = Editor
 
 
 init : Model
 init =
-  defaultContent
+  Model defaultContent Nothing
 
 
 -- UPDATE
 
 
 type Msg
-  = EnteredMarkdown String
+  = ClickedMaximizeButton Window
+  | EnteredMarkdown String
 
 
 update : Msg -> Model -> Model
-update msg _ =
+update msg model =
   case msg of
+    ClickedMaximizeButton window ->
+      { model | maximized = Just window }
+
     EnteredMarkdown content ->
-      content
+      { model | content = content }
 
 
 -- VIEW
 
 
 view : Model -> Html Msg
-view content =
+view { content, maximized } =
   div []
     [ div [ class "container container--width--small" ]
-        [ viewMinimizedEditorWindow content
+        [ if maximized == Just Editor then
+            viewMaximizedEditorWindow content
+          else
+            viewMinimizedEditorWindow content
         ]
     , div [ class "container container--width--medium" ]
         [ viewMinimizedPreviewerWindow content
@@ -75,10 +88,43 @@ viewMinimizedEditorWindow content =
                 [ i [ class "fas fa-edit" ] []
                 ]
             , h2 [ class "window__title" ] [ text "Editor" ]
-            , button [ class "window__button" ]
+            , button
+                [ class "window__button"
+                , E.onClick (ClickedMaximizeButton Editor)
+                ]
                 [ i
                   [ class "fas fa-expand"
                   , title "Click to maximize"
+                  ]
+                  []
+                ]
+            ]
+        , div [ class "window__body" ]
+            [ textarea
+                [ class "editor window__content"
+                , E.onInput EnteredMarkdown
+                ]
+                [ text content ]
+            ]
+        ]
+    ]
+
+
+viewMaximizedEditorWindow : String -> Html Msg
+viewMaximizedEditorWindow content =
+  div [ class "window window--maximized window--theme--forest" ]
+    [ div [ class "window__frame" ]
+        [ div [ class "window__header" ]
+            [ div [ class "window__icon" ]
+                [ i [ class "fas fa-edit" ] []
+                ]
+            , h2 [ class "window__title" ] [ text "Editor" ]
+            , button
+                [ class "window__button"
+                ]
+                [ i
+                  [ class "fas fa-compress"
+                  , title "Click to minimize"
                   ]
                   []
                 ]

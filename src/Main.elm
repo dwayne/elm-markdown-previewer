@@ -28,6 +28,7 @@ type alias Model =
 
 type Window
   = Editor
+  | Previewer
 
 
 init : Model
@@ -70,7 +71,10 @@ view { content, maximized } =
             viewMinimizedEditorWindow content
         ]
     , div [ class "container container--width--medium" ]
-        [ viewMinimizedPreviewerWindow content
+        [ if maximized == Just Previewer then
+            viewMaximizedPreviewerWindow content
+          else
+            viewMinimizedPreviewerWindow content
         ]
     , footer []
         [ p [ class "attribution" ]
@@ -145,7 +149,7 @@ viewMaximizedEditorWindow content =
     ]
 
 
-viewMinimizedPreviewerWindow : String -> Html msg
+viewMinimizedPreviewerWindow : String -> Html Msg
 viewMinimizedPreviewerWindow content =
   div [ class "window window--theme--forest" ]
     [ div [ class "window__frame" ]
@@ -154,10 +158,42 @@ viewMinimizedPreviewerWindow content =
                 [ i [ class "fab fa-html5" ] []
                 ]
             , h2 [ class "window__title" ] [ text "Previewer" ]
-            , button [ class "window__button" ]
+            , button
+                [ class "window__button"
+                , E.onClick (ClickedMaximizeButton Previewer)
+                ]
                 [ i
                   [ class "fas fa-expand"
                   , title "Click to maximize"
+                  ]
+                  []
+                ]
+            ]
+        , div [ class "window__body" ]
+            [ div [ class "previewer window__content" ]
+                [ toHtml content "previewer__html"
+                ]
+            ]
+        ]
+    ]
+
+
+viewMaximizedPreviewerWindow : String -> Html Msg
+viewMaximizedPreviewerWindow content =
+  div [ class "window window--maximized window--theme--forest" ]
+    [ div [ class "window__frame" ]
+        [ div [ class "window__header" ]
+            [ div [ class "window__icon" ]
+                [ i [ class "fab fa-html5" ] []
+                ]
+            , h2 [ class "window__title" ] [ text "Previewer" ]
+            , button
+                [ class "window__button"
+                , E.onClick ClickedMinimizeButton
+                ]
+                [ i
+                  [ class "fas fa-compress"
+                  , title "Click to minimize"
                   ]
                   []
                 ]

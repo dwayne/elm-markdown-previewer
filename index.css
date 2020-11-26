@@ -161,6 +161,10 @@
   min-height: 330px;
 }
 
+.window--theme--forest.window--maximized .window__content {
+  min-height: initial;
+}
+
 .editor--theme--forest {
   background-color: #c0d8d8;
 }

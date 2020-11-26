@@ -40,6 +40,7 @@ init =
 
 type Msg
   = ClickedMaximizeButton Window
+  | ClickedMinimizeButton
   | EnteredMarkdown String
 
 
@@ -48,6 +49,9 @@ update msg model =
   case msg of
     ClickedMaximizeButton window ->
       { model | maximized = Just window }
+
+    ClickedMinimizeButton ->
+      { model | maximized = Nothing }
 
     EnteredMarkdown content ->
       { model | content = content }
@@ -121,6 +125,7 @@ viewMaximizedEditorWindow content =
             , h2 [ class "window__title" ] [ text "Editor" ]
             , button
                 [ class "window__button"
+                , E.onClick ClickedMinimizeButton
                 ]
                 [ i
                   [ class "fas fa-compress"

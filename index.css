@@ -81,3 +81,9 @@
 .editor--locked {
   resize: none;
 }
+
+/** Previewer **/
+
+.previewer {
+  padding: 10px;
+}

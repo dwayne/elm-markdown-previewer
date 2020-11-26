@@ -1,0 +1,32 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 10px;
+  overflow-y: scroll;
+
+  background-color: #87b5b5;
+}
+
+.container {
+  margin: 0 auto 10px auto;
+}
+
+@media (min-width: 620px) {
+  .container--width--small {
+    width: 600px;
+  }
+}
+
+@media (min-width: 820px) {
+  .container--width--medium {
+     width: 800px;
+  }
+}
+
+.attribution {
+  margin: 0;
+  font-size: 0.8rem;
+  text-align: center;
+}

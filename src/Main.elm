@@ -1,17 +1,45 @@
 module Main exposing (main)
 
 
+import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Markdown
 
 
-main : Html msg
+main : Program () Model msg
 main =
-  view defaultContent
+  Browser.sandbox
+    { init = init
+    , update = update
+    , view = view
+    }
 
 
-view : String -> Html msg
+-- MODEL
+
+
+type alias Model =
+  String
+
+
+init : Model
+init =
+  defaultContent
+
+
+-- UPDATE
+
+
+update : msg -> Model -> Model
+update msg model =
+  model
+
+
+-- VIEW
+
+
+view : Model -> Html msg
 view content =
   div []
     [ div [ class "container container--width--small" ]

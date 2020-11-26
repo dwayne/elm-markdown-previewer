@@ -85,7 +85,7 @@
   resize: vertical;
 }
 
-.editor--locked {
+.window--maximized .editor {
   resize: none;
 }
 

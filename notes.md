@@ -31,8 +31,7 @@ To go from the minimized editor window to the maximized editor window you need t
 1. Add the `window--maximized` modifier.
 2. Change the button icon's class from `fa-expand` to `fa-compress`.
 3. Change the button icon's title from "Click to maximize" to "Click to minimize".
-4. Add the `editor--locked` modifier.
-5. Add the `overflow-hidden` class to the `body` tag.
+4. Add the `overflow-hidden` class to the `body` tag.
 
 ```html
 <div class="window window--maximized window--theme--forest">
@@ -48,7 +47,7 @@ To go from the minimized editor window to the maximized editor window you need t
     </div>
 
     <div class="window__body">
-      <textarea class="editor editor--locked window__content">
+      <textarea class="editor window__content">
         <!-- Markdown goes here. -->
       </textarea>
     </div>

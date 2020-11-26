@@ -2,6 +2,10 @@
 
 /** Window **/
 
+.window__frame {
+  background-color: mistyrose;
+}
+
 .window__header {
   border: 1px solid;
   padding: 5px 10px;
@@ -50,8 +54,6 @@
 }
 
 .window--maximized .window__frame {
-  background-color: mistyrose;
-
   position: fixed;
   top: 0;
   left: 0;
@@ -132,6 +134,10 @@
 }
 
 /** Theme **/
+
+.window--theme--forest .window__frame {
+  background-color: #87b5b5;
+}
 
 .window--theme--forest .window__header {
   border-color: #333;

@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Russo+One');
 
+/** Global **/
+
 html {
   font-size: 16px;
 }
@@ -7,6 +9,12 @@ html {
 body {
   margin: 10px;
   overflow-y: scroll;
+
+  background-color: #87b5b5;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .container {
@@ -31,6 +39,12 @@ body {
   text-align: center;
 }
 
+/** Window **/
+
+.window__frame {
+  background-color: mistyrose;
+}
+
 .window__header {
   border: 1px solid;
   padding: 5px 10px;
@@ -43,12 +57,14 @@ body {
   margin-right: 5px;
 }
 
-.window__title {
+/*h2*/.window__title {
   margin: 0;
+
+  font-size: 1rem;
+  font-weight: normal;
 }
 
 /*button*/.window__button {
-  /* Remove default button styles */
   border: 0;
   padding: 0;
   color: inherit;
@@ -67,10 +83,9 @@ body {
 
   display: flex;
   flex-direction: column;
-}
 
-.window__body--scrollable {
   overflow: auto;
+  overflow-wrap: break-word;
 }
 
 .window__content {
@@ -78,8 +93,6 @@ body {
 }
 
 .window--maximized .window__frame {
-  background-color: #fff;
-
   position: fixed;
   top: 0;
   left: 0;
@@ -98,68 +111,70 @@ body {
   flex-grow: 1;
 }
 
+/** Editor **/
+
 /*textarea*/.editor {
-  /* Remove default textarea styles */
   margin: 0;
   border: 0;
+
   padding: 10px;
+  font-size: 1rem;
+  line-height: 1.25;
 
   resize: vertical;
 }
 
-.editor--locked {
+.window--maximized .editor {
   resize: none;
 }
+
+/** Previewer **/
 
 .previewer {
   padding: 10px;
 }
 
-.previewer__markdown blockquote {
+.previewer__html blockquote {
   margin-left: 25px;
   border-left: 3px solid #224b4b;
   padding-left: 5px;
   color: #224b4b;
 }
 
-.previewer__markdown code {
+.previewer__html code {
   padding: 1px 4px 2px 4px;
   font-size: 12px;
   font-weight: bold;
   background: white;
 }
 
-.previewer__markdown pre {
+.previewer__html pre {
   padding: 5px 0 5px 5px;
   background: white;
 }
 
-.previewer__markdown h1 {
+.previewer__html h1 {
   border-bottom: 2px solid #224b4b;
 }
 
-.previewer__markdown h2 {
+.previewer__html h2 {
   border-bottom: 1px solid #224b4b;
 }
 
-.previewer__markdown table {
+.previewer__html table {
   border-collapse: collapse;
 }
 
-.previewer__markdown td,
-.previewer__markdown th {
+.previewer__html td,
+.previewer__html th {
   border: 2px solid #224b4b;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-.overflow-hidden {
-  overflow: hidden;
-}
+/** Theme **/
 
-/* Theme */
-
-/*body*/.theme--forest {
+.window--theme--forest .window__frame {
   background-color: #87b5b5;
 }
 
@@ -171,7 +186,6 @@ body {
 .window--theme--forest .window__title {
   font-family: "Russo One";
   font-size: 0.95rem;
-  font-weight: normal;
 }
 
 .window--theme--forest .window__button:hover {
@@ -186,20 +200,11 @@ body {
   min-height: 330px;
 }
 
-.window--theme--forest.window--maximized .window__frame {
-  background-color: #87b5b5;
-}
-
 .window--theme--forest.window--maximized .window__content {
   min-height: initial;
 }
 
-.editor--theme--forest {
-  font-size: 1rem;
-  line-height: 1.25;
-  background-color: #c0d8d8;
-}
-
-.previewer--theme--forest {
+.window--theme--forest .editor,
+.window--theme--forest .previewer {
   background-color: #c0d8d8;
 }

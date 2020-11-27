@@ -2,8 +2,8 @@ port module Main exposing (main)
 
 
 import Browser
-import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html exposing (Html, a, button, div, footer, h2, i, p, text, textarea)
+import Html.Attributes as A exposing (class)
 import Html.Events as E
 import Markdown
 
@@ -83,19 +83,12 @@ view { content, maximized } =
         [ viewEditorWindow content (maximized == Just Editor) ]
     , div [ class "container container--width--medium" ]
         [ viewPreviewerWindow content (maximized == Just Previewer) ]
-    , footer []
-        [ p [ class "attribution" ]
-            [ text "by "
-            , a
-              [ href "https://www.dwaynecrooks.com" ]
-              [ text "Dwayne Crooks" ]
-            ]
-        ]
+    , footer [] [ viewAttribution ]
     ]
 
 
 viewEditorWindow : String -> Bool -> Html Msg
-viewEditorWindow content isMaximized =
+viewEditorWindow content =
   let
     editor =
       textarea
@@ -110,13 +103,11 @@ viewEditorWindow content isMaximized =
     , handleMaxClick = ClickedMaximizeButton Editor
     , handleMinClick = ClickedMinimizeButton
     }
-    isMaximized
     editor
 
 
-
 viewPreviewerWindow : String -> Bool -> Html Msg
-viewPreviewerWindow content isMaximized =
+viewPreviewerWindow content =
   let
     previewer =
       div [ class "previewer window__content" ]
@@ -128,56 +119,7 @@ viewPreviewerWindow content isMaximized =
     , handleMaxClick = ClickedMaximizeButton Previewer
     , handleMinClick = ClickedMinimizeButton
     }
-    isMaximized
     previewer
-
-
-type alias Config msg =
-  { iconClass : String
-  , title : String
-  , handleMaxClick : msg
-  , handleMinClick : msg
-  }
-
-
-viewWindow : Config msg -> Bool -> Html msg -> Html msg
-viewWindow config isMaximized content =
-  div
-    [ class "window window--theme--forest"
-    , classList [ ("window--maximized", isMaximized) ]
-    ]
-    [ div [ class "window__frame" ]
-        [ div [ class "window__header" ]
-            [ div [ class "window__icon" ]
-                [ i [ class config.iconClass ] []
-                ]
-            , h2 [ class "window__title" ] [ text config.title ]
-            , if isMaximized then
-                button
-                  [ class "window__button"
-                  , E.onClick config.handleMinClick
-                  ]
-                  [ i
-                    [ class "fas fa-compress"
-                    , title "Click to minimize"
-                    ]
-                    []
-                  ]
-              else
-                button
-                  [ class "window__button"
-                  , E.onClick config.handleMaxClick
-                  ]
-                  [ i
-                    [ class "fas fa-expand"
-                    , title "Click to maximize"
-                    ]
-                    []
-                  ]
-            ]
-        , div [ class "window__body" ] [ content ]
-        ]
-    ]
 
 
 toHtml : String -> String -> Html msg
@@ -190,6 +132,56 @@ toHtml content className =
     }
     [ class className ]
     content
+
+
+type alias Config msg =
+  { iconClass : String
+  , title : String
+  , handleMaxClick : msg
+  , handleMinClick : msg
+  }
+
+
+viewWindow : Config msg -> Html msg -> Bool -> Html msg
+viewWindow config content isMaximized =
+  div
+    [ class "window window--theme--forest"
+    , A.classList [ ("window--maximized", isMaximized) ]
+    ]
+    [ div [ class "window__frame" ]
+        [ div [ class "window__header" ]
+            [ div [ class "window__icon" ] [ i [ class config.iconClass ] [] ]
+            , h2 [ class "window__title" ] [ text config.title ]
+            , if isMaximized then
+                viewMinimizeButton config.handleMinClick
+              else
+                viewMaximizeButton config.handleMaxClick
+            ]
+        , div [ class "window__body" ] [ content ]
+        ]
+    ]
+
+
+viewMaximizeButton : msg -> Html msg
+viewMaximizeButton handleMaxClick =
+  button
+    [ class "window__button", E.onClick handleMaxClick ]
+    [ i [ class "fas fa-expand", A.title "Click to maximize" ] [] ]
+
+
+viewMinimizeButton : msg -> Html msg
+viewMinimizeButton handleMinClick =
+  button
+    [ class "window__button", E.onClick handleMinClick ]
+    [ i [ class "fas fa-compress", A.title "Click to minimize" ] [] ]
+
+
+viewAttribution : Html msg
+viewAttribution =
+  p [ class "attribution" ]
+    [ text "by "
+    , a [ A.href "https://www.dwaynecrooks.com" ] [ text "Dwayne Crooks" ]
+    ]
 
 
 -- DATA

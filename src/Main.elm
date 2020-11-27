@@ -10,9 +10,10 @@ import Markdown
 
 main : Program () Model Msg
 main =
-  Browser.sandbox
+  Browser.element
     { init = init
     , update = update
+    , subscriptions = always Sub.none
     , view = view
     }
 
@@ -31,9 +32,11 @@ type Window
   | Previewer
 
 
-init : Model
-init =
-  Model defaultContent Nothing
+init : () -> (Model, Cmd msg)
+init _ =
+  ( Model defaultContent Nothing
+  , Cmd.none
+  )
 
 
 -- UPDATE
@@ -45,17 +48,23 @@ type Msg
   | EnteredMarkdown String
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> (Model, Cmd msg)
 update msg model =
   case msg of
     ClickedMaximizeButton window ->
-      { model | maximized = Just window }
+      ( { model | maximized = Just window }
+      , Cmd.none
+      )
 
     ClickedMinimizeButton ->
-      { model | maximized = Nothing }
+      ( { model | maximized = Nothing }
+      , Cmd.none
+      )
 
     EnteredMarkdown content ->
-      { model | content = content }
+      ( { model | content = content }
+      , Cmd.none
+      )
 
 
 -- VIEW

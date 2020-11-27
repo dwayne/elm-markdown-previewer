@@ -1,4 +1,4 @@
-module Main exposing (main)
+port module Main exposing (main)
 
 
 import Browser
@@ -53,18 +53,24 @@ update msg model =
   case msg of
     ClickedMaximizeButton window ->
       ( { model | maximized = Just window }
-      , Cmd.none
+      , sendEvent "maximize"
       )
 
     ClickedMinimizeButton ->
       ( { model | maximized = Nothing }
-      , Cmd.none
+      , sendEvent "minimize"
       )
 
     EnteredMarkdown content ->
       ( { model | content = content }
       , Cmd.none
       )
+
+
+-- PORTS
+
+
+port sendEvent : String -> Cmd msg
 
 
 -- VIEW

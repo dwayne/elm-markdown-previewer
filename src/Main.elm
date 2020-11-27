@@ -80,17 +80,9 @@ view : Model -> Html Msg
 view { content, maximized } =
   div []
     [ div [ class "container container--width--small" ]
-        [ if maximized == Just Editor then
-            viewMaximizedEditorWindow content
-          else
-            viewMinimizedEditorWindow content
-        ]
+        [ viewEditorWindow content (maximized == Just Editor) ]
     , div [ class "container container--width--medium" ]
-        [ if maximized == Just Previewer then
-            viewMaximizedPreviewerWindow content
-          else
-            viewMinimizedPreviewerWindow content
-        ]
+        [ viewPreviewerWindow content (maximized == Just Previewer) ]
     , footer []
         [ p [ class "attribution" ]
             [ text "by "
@@ -102,122 +94,88 @@ view { content, maximized } =
     ]
 
 
-viewMinimizedEditorWindow : String -> Html Msg
-viewMinimizedEditorWindow content =
-  div [ class "window window--theme--forest" ]
-    [ div [ class "window__frame" ]
-        [ div [ class "window__header" ]
-            [ div [ class "window__icon" ]
-                [ i [ class "fas fa-edit" ] []
-                ]
-            , h2 [ class "window__title" ] [ text "Editor" ]
-            , button
-                [ class "window__button"
-                , E.onClick (ClickedMaximizeButton Editor)
-                ]
-                [ i
-                  [ class "fas fa-expand"
-                  , title "Click to maximize"
-                  ]
-                  []
-                ]
-            ]
-        , div [ class "window__body" ]
-            [ textarea
-                [ class "editor window__content"
-                , E.onInput EnteredMarkdown
-                ]
-                [ text content ]
-            ]
+viewEditorWindow : String -> Bool -> Html Msg
+viewEditorWindow content isMaximized =
+  let
+    editor =
+      textarea
+        [ class "editor window__content"
+        , E.onInput EnteredMarkdown
         ]
+        [ text content ]
+  in
+  viewWindow
+    { iconClass = "fas fa-edit"
+    , title = "Editor"
+    , handleMaxClick = ClickedMaximizeButton Editor
+    , handleMinClick = ClickedMinimizeButton
+    }
+    isMaximized
+    editor
+
+
+
+viewPreviewerWindow : String -> Bool -> Html Msg
+viewPreviewerWindow content isMaximized =
+  let
+    previewer =
+      div [ class "previewer window__content" ]
+        [ toHtml content "previewer__html" ]
+  in
+  viewWindow
+    { iconClass = "fab fa-html5"
+    , title = "Previewer"
+    , handleMaxClick = ClickedMaximizeButton Previewer
+    , handleMinClick = ClickedMinimizeButton
+    }
+    isMaximized
+    previewer
+
+
+type alias Config msg =
+  { iconClass : String
+  , title : String
+  , handleMaxClick : msg
+  , handleMinClick : msg
+  }
+
+
+viewWindow : Config msg -> Bool -> Html msg -> Html msg
+viewWindow config isMaximized content =
+  div
+    [ class "window window--theme--forest"
+    , classList [ ("window--maximized", isMaximized) ]
     ]
-
-
-viewMaximizedEditorWindow : String -> Html Msg
-viewMaximizedEditorWindow content =
-  div [ class "window window--maximized window--theme--forest" ]
     [ div [ class "window__frame" ]
         [ div [ class "window__header" ]
             [ div [ class "window__icon" ]
-                [ i [ class "fas fa-edit" ] []
+                [ i [ class config.iconClass ] []
                 ]
-            , h2 [ class "window__title" ] [ text "Editor" ]
-            , button
-                [ class "window__button"
-                , E.onClick ClickedMinimizeButton
-                ]
-                [ i
-                  [ class "fas fa-compress"
-                  , title "Click to minimize"
+            , h2 [ class "window__title" ] [ text config.title ]
+            , if isMaximized then
+                button
+                  [ class "window__button"
+                  , E.onClick config.handleMinClick
                   ]
-                  []
-                ]
-            ]
-        , div [ class "window__body" ]
-            [ textarea
-                [ class "editor window__content"
-                , E.onInput EnteredMarkdown
-                ]
-                [ text content ]
-            ]
-        ]
-    ]
-
-
-viewMinimizedPreviewerWindow : String -> Html Msg
-viewMinimizedPreviewerWindow content =
-  div [ class "window window--theme--forest" ]
-    [ div [ class "window__frame" ]
-        [ div [ class "window__header" ]
-            [ div [ class "window__icon" ]
-                [ i [ class "fab fa-html5" ] []
-                ]
-            , h2 [ class "window__title" ] [ text "Previewer" ]
-            , button
-                [ class "window__button"
-                , E.onClick (ClickedMaximizeButton Previewer)
-                ]
-                [ i
-                  [ class "fas fa-expand"
-                  , title "Click to maximize"
+                  [ i
+                    [ class "fas fa-compress"
+                    , title "Click to minimize"
+                    ]
+                    []
                   ]
-                  []
-                ]
-            ]
-        , div [ class "window__body" ]
-            [ div [ class "previewer window__content" ]
-                [ toHtml content "previewer__html"
-                ]
-            ]
-        ]
-    ]
-
-
-viewMaximizedPreviewerWindow : String -> Html Msg
-viewMaximizedPreviewerWindow content =
-  div [ class "window window--maximized window--theme--forest" ]
-    [ div [ class "window__frame" ]
-        [ div [ class "window__header" ]
-            [ div [ class "window__icon" ]
-                [ i [ class "fab fa-html5" ] []
-                ]
-            , h2 [ class "window__title" ] [ text "Previewer" ]
-            , button
-                [ class "window__button"
-                , E.onClick ClickedMinimizeButton
-                ]
-                [ i
-                  [ class "fas fa-compress"
-                  , title "Click to minimize"
+              else
+                button
+                  [ class "window__button"
+                  , E.onClick config.handleMaxClick
                   ]
-                  []
-                ]
+                  [ i
+                    [ class "fas fa-expand"
+                    , title "Click to maximize"
+                    ]
+                    []
+                  ]
             ]
-        , div [ class "window__body" ]
-            [ div [ class "previewer window__content" ]
-                [ toHtml content "previewer__html"
-                ]
-            ]
+        , div [ class "window__body" ] [ content ]
         ]
     ]
 

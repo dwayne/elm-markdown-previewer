@@ -100,8 +100,8 @@ viewEditorWindow content =
   viewWindow
     { iconClass = "fas fa-edit"
     , title = "Editor"
-    , handleMaxClick = ClickedMaximizeButton Editor
-    , handleMinClick = ClickedMinimizeButton
+    , onMaxClick = ClickedMaximizeButton Editor
+    , onMinClick = ClickedMinimizeButton
     }
     editor
 
@@ -116,8 +116,8 @@ viewPreviewerWindow content =
   viewWindow
     { iconClass = "fab fa-html5"
     , title = "Previewer"
-    , handleMaxClick = ClickedMaximizeButton Previewer
-    , handleMinClick = ClickedMinimizeButton
+    , onMaxClick = ClickedMaximizeButton Previewer
+    , onMinClick = ClickedMinimizeButton
     }
     previewer
 
@@ -137,8 +137,8 @@ toHtml content className =
 type alias Config msg =
   { iconClass : String
   , title : String
-  , handleMaxClick : msg
-  , handleMinClick : msg
+  , onMaxClick : msg
+  , onMinClick : msg
   }
 
 
@@ -153,9 +153,9 @@ viewWindow config content isMaximized =
             [ div [ class "window__icon" ] [ i [ class config.iconClass ] [] ]
             , h2 [ class "window__title" ] [ text config.title ]
             , if isMaximized then
-                viewMinimizeButton config.handleMinClick
+                viewMinimizeButton config.onMinClick
               else
-                viewMaximizeButton config.handleMaxClick
+                viewMaximizeButton config.onMaxClick
             ]
         , div [ class "window__body" ] [ content ]
         ]
@@ -163,16 +163,16 @@ viewWindow config content isMaximized =
 
 
 viewMaximizeButton : msg -> Html msg
-viewMaximizeButton handleMaxClick =
+viewMaximizeButton onMaxClick =
   button
-    [ class "window__button", E.onClick handleMaxClick ]
+    [ class "window__button", E.onClick onMaxClick ]
     [ i [ class "fas fa-expand", A.title "Click to maximize" ] [] ]
 
 
 viewMinimizeButton : msg -> Html msg
-viewMinimizeButton handleMinClick =
+viewMinimizeButton onMinClick =
   button
-    [ class "window__button", E.onClick handleMinClick ]
+    [ class "window__button", E.onClick onMinClick ]
     [ i [ class "fas fa-compress", A.title "Click to minimize" ] [] ]
 
 

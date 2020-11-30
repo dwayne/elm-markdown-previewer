@@ -180,7 +180,7 @@ viewAttribution : Html msg
 viewAttribution =
   p [ class "attribution" ]
     [ text "by "
-    , a [ A.href "https://www.dwaynecrooks.com" ] [ text "Dwayne Crooks" ]
+    , a [ A.href "http://dwaynecrooks.com" ] [ text "Dwayne Crooks" ]
     ]
 
 

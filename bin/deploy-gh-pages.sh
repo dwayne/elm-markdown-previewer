@@ -18,9 +18,8 @@ cp -r $root_dir/* $deploy_dir
 
 git -C $deploy_dir add .
 
-current_branch="$(git branch --show-current)"
-hash="$(git log -n 1 --format='%h' $current_branch)"
-message="Site updated to commit $hash from the $current_branch branch"
+hash="$(git log -n 1 --format='%h' master)"
+message="Site updated to $hash"
 
 if git -C $deploy_dir commit -m "$message"; then
   git -C $deploy_dir push -u origin HEAD

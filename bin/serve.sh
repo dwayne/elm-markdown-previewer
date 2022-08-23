@@ -1,3 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-python -m SimpleHTTPServer
+set -e
+
+port="${1:-3000}"
+
+caddy file-server --browse --root .build --listen :"$port"

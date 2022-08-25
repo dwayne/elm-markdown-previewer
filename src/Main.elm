@@ -2,9 +2,9 @@ port module Main exposing (main)
 
 
 import Browser
-import Html exposing (Html, a, button, div, footer, h2, i, p, text, textarea)
-import Html.Attributes as A exposing (class)
-import Html.Events as E
+import Html as H
+import Html.Attributes as HA
+import Html.Events as HE
 import Markdown
 
 
@@ -76,26 +76,26 @@ port sendEvent : String -> Cmd msg
 -- VIEW
 
 
-view : Model -> Html Msg
+view : Model -> H.Html Msg
 view { content, maximized } =
-  div []
-    [ div [ class "container container--width--small" ]
+  H.div []
+    [ H.div [ HA.class "container container--width--small" ]
         [ viewEditorWindow content (maximized == Just Editor) ]
-    , div [ class "container container--width--medium" ]
+    , H.div [ HA.class "container container--width--medium" ]
         [ viewPreviewerWindow content (maximized == Just Previewer) ]
-    , footer [] [ viewAttribution ]
+    , H.footer [] [ viewAttribution ]
     ]
 
 
-viewEditorWindow : String -> Bool -> Html Msg
+viewEditorWindow : String -> Bool -> H.Html Msg
 viewEditorWindow content =
   let
     editor =
-      textarea
-        [ class "editor window__content"
-        , E.onInput EnteredMarkdown
+      H.textarea
+        [ HA.class "editor window__content"
+        , HE.onInput EnteredMarkdown
         ]
-        [ text content ]
+        [ H.text content ]
   in
   viewWindow
     { iconClass = "fas fa-edit"
@@ -106,11 +106,12 @@ viewEditorWindow content =
     editor
 
 
-viewPreviewerWindow : String -> Bool -> Html Msg
+viewPreviewerWindow : String -> Bool -> H.Html Msg
 viewPreviewerWindow content =
   let
     previewer =
-      div [ class "previewer window__content" ]
+      H.div
+        [ HA.class "previewer window__content" ]
         [ toHtml content "previewer__html" ]
   in
   viewWindow
@@ -122,7 +123,7 @@ viewPreviewerWindow content =
     previewer
 
 
-toHtml : String -> String -> Html msg
+toHtml : String -> String -> H.Html msg
 toHtml content className =
   Markdown.toHtmlWith
     { githubFlavored = Just { tables = True, breaks = False }
@@ -130,7 +131,7 @@ toHtml content className =
     , sanitize = True
     , smartypants = False
     }
-    [ class className ]
+    [ HA.class className ]
     content
 
 
@@ -142,45 +143,59 @@ type alias Config msg =
   }
 
 
-viewWindow : Config msg -> Html msg -> Bool -> Html msg
+viewWindow : Config msg -> H.Html msg -> Bool -> H.Html msg
 viewWindow config content isMaximized =
-  div
-    [ class "window window--theme--forest"
-    , A.classList [ ("window--maximized", isMaximized) ]
+  H.div
+    [ HA.class "window window--theme--forest"
+    , HA.classList [ ("window--maximized", isMaximized) ]
     ]
-    [ div [ class "window__frame" ]
-        [ div [ class "window__header" ]
-            [ div [ class "window__icon" ] [ i [ class config.iconClass ] [] ]
-            , h2 [ class "window__title" ] [ text config.title ]
+    [ H.div [ HA.class "window__frame" ]
+        [ H.div [ HA.class "window__header" ]
+            [ H.div [ HA.class "window__icon" ] [ H.i [ HA.class config.iconClass ] [] ]
+            , H.h2 [ HA.class "window__title" ] [ H.text config.title ]
             , if isMaximized then
                 viewMinimizeButton config.onMinClick
               else
                 viewMaximizeButton config.onMaxClick
             ]
-        , div [ class "window__body" ] [ content ]
+        , H.div [ HA.class "window__body" ] [ content ]
         ]
     ]
 
 
-viewMaximizeButton : msg -> Html msg
-viewMaximizeButton onMaxClick =
-  button
-    [ class "window__button", E.onClick onMaxClick ]
-    [ i [ class "fas fa-expand", A.title "Click to maximize" ] [] ]
+viewMaximizeButton : msg -> H.Html msg
+viewMaximizeButton onClick =
+  H.button
+    [ HA.class "window__button"
+    , HE.onClick onClick
+    ]
+    [ H.i
+        [ HA.class "fas fa-expand"
+        , HA.title "Click to maximize"
+        ]
+        []
+    ]
 
 
-viewMinimizeButton : msg -> Html msg
-viewMinimizeButton onMinClick =
-  button
-    [ class "window__button", E.onClick onMinClick ]
-    [ i [ class "fas fa-compress", A.title "Click to minimize" ] [] ]
+viewMinimizeButton : msg -> H.Html msg
+viewMinimizeButton onClick =
+  H.button
+    [ HA.class "window__button"
+    , HE.onClick onClick
+    ]
+    [ H.i
+        [ HA.class "fas fa-compress"
+        , HA.title "Click to minimize"
+        ]
+        []
+    ]
 
 
-viewAttribution : Html msg
+viewAttribution : H.Html msg
 viewAttribution =
-  p [ class "attribution" ]
-    [ text "by "
-    , a [ A.href "http://dwaynecrooks.com" ] [ text "Dwayne Crooks" ]
+  H.p [ HA.class "attribution" ]
+    [ H.text "by "
+    , H.a [ HA.href "https://github.com/dwayne" ] [ H.text "Dwayne Crooks" ]
     ]
 
 

@@ -3,5 +3,14 @@
     "elmPackages.elm@latest",
     "caddy@latest",
     "dart-sass@latest"
-  ]
+  ],
+  "env": {
+    "project": "$PWD"
+  },
+  "shell": {
+    "init_hook": [
+      "export build=\"$project/.build\"",
+      "export PATH=\"$project/bin:$PATH\""
+    ]
+  }
 }

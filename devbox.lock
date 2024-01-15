@@ -1,0 +1,66 @@
+{
+  "lockfile_version": "1",
+  "packages": {
+    "caddy@latest": {
+      "last_modified": "2023-12-13T22:54:10Z",
+      "plugin_version": "0.0.3",
+      "resolved": "github:NixOS/nixpkgs/fd04bea4cbf76f86f244b9e2549fca066db8ddff#caddy",
+      "source": "devbox-search",
+      "version": "2.7.6",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/da66gxmm6wy8shkw93x5m6c1x8gfj63r-caddy-2.7.6"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/5haz28cigj6z0a77zalh9yiy8q74spjb-caddy-2.7.6"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/5s6pfikr5y4vdxp94dyhr5mhrwmkh43x-caddy-2.7.6"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/pn5wj5q9k8vdv99nvl93gk71miqsx32k-caddy-2.7.6"
+        }
+      }
+    },
+    "dart-sass@latest": {
+      "last_modified": "2023-12-25T10:13:25Z",
+      "resolved": "github:NixOS/nixpkgs/e1fa12d4f6c6fe19ccb59cac54b5b3f25e160870#dart-sass",
+      "source": "devbox-search",
+      "version": "1.69.0",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/dk2j3a164ab5kvj3pr47q2dwc91j8gz8-dart-sass-1.69.0"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/9amwllkd064clyzg2dqbmx013bfgw0yv-dart-sass-1.69.0"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/w6chx6rps5nxvvp8k6nz4dal4hxsxxi0-dart-sass-1.69.0"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/zygcmrybycsncs5scli6a8wcnpb4p5li-dart-sass-1.69.0"
+        }
+      }
+    },
+    "elmPackages.elm@latest": {
+      "last_modified": "2024-01-02T02:19:20Z",
+      "resolved": "github:NixOS/nixpkgs/63143ac2c9186be6d9da6035fa22620018c85932#elmPackages.elm",
+      "source": "devbox-search",
+      "version": "0.19.1",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/nz24isq3p95n9gnmv6mbipw38ld2if59-elm-0.19.1"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/9q0wh6lpbvf60ad2jg8jgbd6ajixnhpr-elm-0.19.1"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/qcd04i5dg7379517b502rnsz9bc6pyzb-elm-0.19.1"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/v45x7wlnw2xx0qvma7swjslq6y5wfpjc-elm-0.19.1"
+        }
+      }
+    }
+  }
+}

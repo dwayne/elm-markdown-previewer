@@ -1,0 +1,7 @@
+{
+  "packages": [
+    "elmPackages.elm@latest",
+    "caddy@latest",
+    "dart-sass@latest"
+  ]
+}

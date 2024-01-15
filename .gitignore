@@ -1,3 +1,4 @@
 .build/
+.devbox/
 .dist/
 elm-stuff/

@@ -199,7 +199,12 @@ viewAttribution : H.Html msg
 viewAttribution =
     H.p [ HA.class "attribution" ]
         [ H.text "by "
-        , H.a [ HA.href "https://github.com/dwayne" ] [ H.text "Dwayne Crooks" ]
+        , H.a
+            [ HA.href "https://github.com/dwayne"
+            , HA.target "_blank"
+            , HA.title "Developed by Dwayne Crooks"
+            ]
+            [ H.text "Dwayne Crooks" ]
         ]
 
 

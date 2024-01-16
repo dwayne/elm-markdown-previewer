@@ -7,7 +7,9 @@
     "dart-sass": "latest",
     "elmPackages.elm": "latest",
     "elmPackages.elm-format": "latest",
+    "elmPackages.elm-optimize-level-2": "latest",
     "elmPackages.elm-review": "latest",
+    "terser": "latest",
     "xdg-utils": "latest"
   },
   "env": {

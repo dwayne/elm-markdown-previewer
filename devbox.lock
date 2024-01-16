@@ -3,7 +3,6 @@
   "packages": {
     "caddy@latest": {
       "last_modified": "2023-12-13T22:54:10Z",
-      "plugin_version": "0.0.3",
       "resolved": "github:NixOS/nixpkgs/fd04bea4cbf76f86f244b9e2549fca066db8ddff#caddy",
       "source": "devbox-search",
       "version": "2.7.6",
@@ -42,7 +41,7 @@
         }
       }
     },
-    "elmPackages.elm-format@0.8.7": {
+    "elmPackages.elm-format@latest": {
       "last_modified": "2023-12-13T22:54:10Z",
       "resolved": "github:NixOS/nixpkgs/fd04bea4cbf76f86f244b9e2549fca066db8ddff#elmPackages.elm-format",
       "source": "devbox-search",
@@ -59,6 +58,26 @@
         },
         "x86_64-linux": {
           "store_path": "/nix/store/rkfrhhg5jxbdglgshq3sq1avzpsmxkl0-elm-format-0.8.7"
+        }
+      }
+    },
+    "elmPackages.elm-review@latest": {
+      "last_modified": "2023-12-13T22:54:10Z",
+      "resolved": "github:NixOS/nixpkgs/fd04bea4cbf76f86f244b9e2549fca066db8ddff#elmPackages.elm-review",
+      "source": "devbox-search",
+      "version": "2.10.3",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/sqc6an2nxr8rhan6kmyf6hd2cda64bv3-elm-review-2.10.3"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/8rh83vmkpfz8wca06a46pdiaq7946nwm-elm-review-2.10.3"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/dc9kkw26kp64kzbhlsnhv2x8a96v82l9-elm-review-2.10.3"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/85wcln14qrl831dyxwlxxgw0zj7xxpsf-elm-review-2.10.3"
         }
       }
     },

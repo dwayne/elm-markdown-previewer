@@ -1,6 +1,5 @@
 port module Main exposing (main)
 
-
 import Browser
 import Html as H
 import Html.Attributes as HA
@@ -10,61 +9,64 @@ import Markdown
 
 main : Program () Model Msg
 main =
-  Browser.element
-    { init = init
-    , update = update
-    , subscriptions = always Sub.none
-    , view = view
-    }
+    Browser.element
+        { init = init
+        , update = update
+        , subscriptions = always Sub.none
+        , view = view
+        }
+
 
 
 -- MODEL
 
 
 type alias Model =
-  { content : String
-  , maximized : Maybe Window
-  }
+    { content : String
+    , maximized : Maybe Window
+    }
 
 
 type Window
-  = Editor
-  | Previewer
+    = Editor
+    | Previewer
 
 
-init : () -> (Model, Cmd msg)
+init : () -> ( Model, Cmd msg )
 init _ =
-  ( Model defaultContent Nothing
-  , Cmd.none
-  )
+    ( Model defaultContent Nothing
+    , Cmd.none
+    )
+
 
 
 -- UPDATE
 
 
 type Msg
-  = ClickedMaximizeButton Window
-  | ClickedMinimizeButton
-  | EnteredMarkdown String
+    = ClickedMaximizeButton Window
+    | ClickedMinimizeButton
+    | EnteredMarkdown String
 
 
-update : Msg -> Model -> (Model, Cmd msg)
+update : Msg -> Model -> ( Model, Cmd msg )
 update msg model =
-  case msg of
-    ClickedMaximizeButton window ->
-      ( { model | maximized = Just window }
-      , sendEvent "maximize"
-      )
+    case msg of
+        ClickedMaximizeButton window ->
+            ( { model | maximized = Just window }
+            , sendEvent "maximize"
+            )
 
-    ClickedMinimizeButton ->
-      ( { model | maximized = Nothing }
-      , sendEvent "minimize"
-      )
+        ClickedMinimizeButton ->
+            ( { model | maximized = Nothing }
+            , sendEvent "minimize"
+            )
 
-    EnteredMarkdown content ->
-      ( { model | content = content }
-      , Cmd.none
-      )
+        EnteredMarkdown content ->
+            ( { model | content = content }
+            , Cmd.none
+            )
+
 
 
 -- PORTS
@@ -73,130 +75,133 @@ update msg model =
 port sendEvent : String -> Cmd msg
 
 
+
 -- VIEW
 
 
 view : Model -> H.Html Msg
 view { content, maximized } =
-  H.div []
-    [ H.div [ HA.class "container container--width--small" ]
-        [ viewEditorWindow content (maximized == Just Editor) ]
-    , H.div [ HA.class "container container--width--medium" ]
-        [ viewPreviewerWindow content (maximized == Just Previewer) ]
-    , H.footer [] [ viewAttribution ]
-    ]
+    H.div []
+        [ H.div [ HA.class "container container--width--small" ]
+            [ viewEditorWindow content (maximized == Just Editor) ]
+        , H.div [ HA.class "container container--width--medium" ]
+            [ viewPreviewerWindow content (maximized == Just Previewer) ]
+        , H.footer [] [ viewAttribution ]
+        ]
 
 
 viewEditorWindow : String -> Bool -> H.Html Msg
 viewEditorWindow content =
-  let
-    editor =
-      H.textarea
-        [ HA.class "editor window__content"
-        , HE.onInput EnteredMarkdown
-        ]
-        [ H.text content ]
-  in
-  viewWindow
-    { iconClass = "fas fa-edit"
-    , title = "Editor"
-    , onMaxClick = ClickedMaximizeButton Editor
-    , onMinClick = ClickedMinimizeButton
-    }
-    editor
+    let
+        editor =
+            H.textarea
+                [ HA.class "editor window__content"
+                , HE.onInput EnteredMarkdown
+                ]
+                [ H.text content ]
+    in
+    viewWindow
+        { iconClass = "fas fa-edit"
+        , title = "Editor"
+        , onMaxClick = ClickedMaximizeButton Editor
+        , onMinClick = ClickedMinimizeButton
+        }
+        editor
 
 
 viewPreviewerWindow : String -> Bool -> H.Html Msg
 viewPreviewerWindow content =
-  let
-    previewer =
-      H.div
-        [ HA.class "previewer window__content" ]
-        [ toHtml content "previewer__html" ]
-  in
-  viewWindow
-    { iconClass = "fab fa-html5"
-    , title = "Previewer"
-    , onMaxClick = ClickedMaximizeButton Previewer
-    , onMinClick = ClickedMinimizeButton
-    }
-    previewer
+    let
+        previewer =
+            H.div
+                [ HA.class "previewer window__content" ]
+                [ toHtml content "previewer__html" ]
+    in
+    viewWindow
+        { iconClass = "fab fa-html5"
+        , title = "Previewer"
+        , onMaxClick = ClickedMaximizeButton Previewer
+        , onMinClick = ClickedMinimizeButton
+        }
+        previewer
 
 
 toHtml : String -> String -> H.Html msg
 toHtml content className =
-  Markdown.toHtmlWith
-    { githubFlavored = Just { tables = True, breaks = False }
-    , defaultHighlighting = Just "elm"
-    , sanitize = True
-    , smartypants = False
-    }
-    [ HA.class className ]
-    content
+    Markdown.toHtmlWith
+        { githubFlavored = Just { tables = True, breaks = False }
+        , defaultHighlighting = Just "elm"
+        , sanitize = True
+        , smartypants = False
+        }
+        [ HA.class className ]
+        content
 
 
 type alias Config msg =
-  { iconClass : String
-  , title : String
-  , onMaxClick : msg
-  , onMinClick : msg
-  }
+    { iconClass : String
+    , title : String
+    , onMaxClick : msg
+    , onMinClick : msg
+    }
 
 
 viewWindow : Config msg -> H.Html msg -> Bool -> H.Html msg
 viewWindow config content isMaximized =
-  H.div
-    [ HA.class "window window--theme--forest"
-    , HA.classList [ ("window--maximized", isMaximized) ]
-    ]
-    [ H.div [ HA.class "window__frame" ]
-        [ H.div [ HA.class "window__header" ]
-            [ H.div [ HA.class "window__icon" ] [ H.i [ HA.class config.iconClass ] [] ]
-            , H.h2 [ HA.class "window__title" ] [ H.text config.title ]
-            , if isMaximized then
-                viewMinimizeButton config.onMinClick
-              else
-                viewMaximizeButton config.onMaxClick
-            ]
-        , H.div [ HA.class "window__body" ] [ content ]
+    H.div
+        [ HA.class "window window--theme--forest"
+        , HA.classList [ ( "window--maximized", isMaximized ) ]
         ]
-    ]
+        [ H.div [ HA.class "window__frame" ]
+            [ H.div [ HA.class "window__header" ]
+                [ H.div [ HA.class "window__icon" ] [ H.i [ HA.class config.iconClass ] [] ]
+                , H.h2 [ HA.class "window__title" ] [ H.text config.title ]
+                , if isMaximized then
+                    viewMinimizeButton config.onMinClick
+
+                  else
+                    viewMaximizeButton config.onMaxClick
+                ]
+            , H.div [ HA.class "window__body" ] [ content ]
+            ]
+        ]
 
 
 viewMaximizeButton : msg -> H.Html msg
 viewMaximizeButton onClick =
-  H.button
-    [ HA.class "window__button"
-    , HE.onClick onClick
-    ]
-    [ H.i
-        [ HA.class "fas fa-expand"
-        , HA.title "Click to maximize"
+    H.button
+        [ HA.class "window__button"
+        , HE.onClick onClick
         ]
-        []
-    ]
+        [ H.i
+            [ HA.class "fas fa-expand"
+            , HA.title "Click to maximize"
+            ]
+            []
+        ]
 
 
 viewMinimizeButton : msg -> H.Html msg
 viewMinimizeButton onClick =
-  H.button
-    [ HA.class "window__button"
-    , HE.onClick onClick
-    ]
-    [ H.i
-        [ HA.class "fas fa-compress"
-        , HA.title "Click to minimize"
+    H.button
+        [ HA.class "window__button"
+        , HE.onClick onClick
         ]
-        []
-    ]
+        [ H.i
+            [ HA.class "fas fa-compress"
+            , HA.title "Click to minimize"
+            ]
+            []
+        ]
 
 
 viewAttribution : H.Html msg
 viewAttribution =
-  H.p [ HA.class "attribution" ]
-    [ H.text "by "
-    , H.a [ HA.href "https://github.com/dwayne" ] [ H.text "Dwayne Crooks" ]
-    ]
+    H.p [ HA.class "attribution" ]
+        [ H.text "by "
+        , H.a [ HA.href "https://github.com/dwayne" ] [ H.text "Dwayne Crooks" ]
+        ]
+
 
 
 -- DATA
@@ -204,7 +209,7 @@ viewAttribution =
 
 defaultContent : String
 defaultContent =
-  """# An Elm Markdown Previewer!
+    """# An Elm Markdown Previewer!
 
 ## This is a sub-heading...
 ### And here's some other cool stuff:

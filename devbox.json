@@ -1,13 +1,14 @@
 {
   "packages": [
-    "elmPackages.elm@latest",
     "caddy@latest",
     "dart-sass@latest",
+    "elmPackages.elm@latest",
+    "elmPackages.elm-format@0.8.7",
     "xdg-utils@latest"
   ],
   "env": {
     "project": "$PWD",
-    "build": "$PWD/.build",
-    "PATH": "$PWD/bin:$PATH"
+    "build":   "$PWD/.build",
+    "PATH":    "$PWD/bin:$PATH"
   }
 }

@@ -2,22 +2,22 @@
   "lockfile_version": "1",
   "packages": {
     "caddy@latest": {
-      "last_modified": "2023-12-13T22:54:10Z",
-      "resolved": "github:NixOS/nixpkgs/fd04bea4cbf76f86f244b9e2549fca066db8ddff#caddy",
+      "last_modified": "2024-01-14T03:55:27Z",
+      "resolved": "github:NixOS/nixpkgs/dd5621df6dcb90122b50da5ec31c411a0de3e538#caddy",
       "source": "devbox-search",
       "version": "2.7.6",
       "systems": {
         "aarch64-darwin": {
-          "store_path": "/nix/store/da66gxmm6wy8shkw93x5m6c1x8gfj63r-caddy-2.7.6"
+          "store_path": "/nix/store/ga0yp1ki5fmk0p6b4kn2z9qq7ddpbyyw-caddy-2.7.6"
         },
         "aarch64-linux": {
-          "store_path": "/nix/store/5haz28cigj6z0a77zalh9yiy8q74spjb-caddy-2.7.6"
+          "store_path": "/nix/store/jn3wbc0cgblkgd6phygq1wgk6j65w2aa-caddy-2.7.6"
         },
         "x86_64-darwin": {
-          "store_path": "/nix/store/5s6pfikr5y4vdxp94dyhr5mhrwmkh43x-caddy-2.7.6"
+          "store_path": "/nix/store/np97d9737d386qkj4brj10b0s2468n8a-caddy-2.7.6"
         },
         "x86_64-linux": {
-          "store_path": "/nix/store/pn5wj5q9k8vdv99nvl93gk71miqsx32k-caddy-2.7.6"
+          "store_path": "/nix/store/7aiga3m93g0j4anmvv6svk2kfvxyl6cd-caddy-2.7.6"
         }
       }
     },

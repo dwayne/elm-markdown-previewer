@@ -1,15 +1,18 @@
 {
-  "packages": [
-    "caddy@latest",
-    "dart-sass@latest",
-    "elmPackages.elm@latest",
-    "elmPackages.elm-format@latest",
-    "elmPackages.elm-review@latest",
-    "xdg-utils@latest"
-  ],
+  "packages": {
+    "caddy": {
+      "version": "latest",
+      "disable_plugin": true
+    },
+    "dart-sass": "latest",
+    "elmPackages.elm": "latest",
+    "elmPackages.elm-format": "latest",
+    "elmPackages.elm-review": "latest",
+    "xdg-utils": "latest"
+  },
   "env": {
     "project": "$PWD",
-    "build":   "$PWD/.build",
-    "PATH":    "$PWD/bin:$PATH"
+    "build": "$PWD/.build",
+    "PATH": "$PWD/bin:$PATH"
   }
 }

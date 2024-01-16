@@ -1,0 +1,116 @@
+@use "sass:color";
+@use "fonts";
+
+.window {
+  --window-frame-background-color: #dbd7d2;
+
+  --window-header-border-color: currentcolor;
+  --window-header-background-color: initial;
+
+  --window-title-font-family: initial;
+  --window-title-font-size: 1rem;
+
+  --window-button-hover-color: initial;
+
+  --window-body-border-color: currentcolor;
+
+  --window-content-background-color: #{color.scale(#dbd7d2, $lightness: 50%)};
+  --window-content-min-height: initial;
+  --window-content-maximized-min-height: initial;
+}
+
+.window--theme--forest {
+  --window-frame-background-color: #87b5b5;
+
+  --window-header-border-color: #333;
+  --window-header-background-color: #4aa3a3;
+
+  --window-title-font-family: fonts.$russoOne;
+  --window-title-font-size: 0.95rem;
+
+  --window-button-hover-color: #57e2b1;
+
+  --window-body-border-color: #333;
+
+  --window-content-background-color: #c0d8d8;
+  --window-content-min-height: 330px;
+}
+
+.window__frame {
+  background-color: var(--window-frame-background-color);
+}
+
+.window__header {
+  border: 1px solid var(--window-header-border-color);
+  background-color: var(--window-header-background-color);
+  padding: 5px 10px;
+
+  display: flex;
+  align-items: center;
+}
+
+.window__icon {
+  margin-right: 5px;
+}
+
+/*h2*/.window__title {
+  margin: 0;
+
+  font-family: var(--window-title-font-family);
+  font-size: var(----window-title-font-size);
+  font-weight: normal;
+}
+
+/*button*/.window__button {
+  border: 0;
+  padding: 0;
+  color: inherit;
+  background-color: inherit;
+
+  margin-left: auto;
+}
+
+.window__button:hover {
+  cursor: pointer;
+  color: var(--window-button-hover-color);
+}
+
+.window__body {
+  border: 1px solid var(--window-body-border-color);
+  border-top-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: auto;
+  overflow-wrap: break-word;
+}
+
+.window__content {
+  flex-grow: 1;
+  background-color: var(--window-content-background-color);
+  min-height: var(--window-content-min-height);
+}
+
+.window--maximized .window__frame {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  padding: 10px;
+}
+
+.window--maximized .window__frame {
+  display: flex;
+  flex-direction: column;
+}
+
+.window--maximized .window__body {
+  flex-grow: 1;
+}
+
+.window--maximized .window__content {
+  min-height: var(--window-content-maximized-min-height);
+}

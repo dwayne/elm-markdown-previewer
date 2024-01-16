@@ -1,0 +1,14 @@
+/*textarea*/.editor {
+  margin: 0;
+  border: 0;
+
+  padding: 10px;
+  font-size: 1rem;
+  line-height: 1.25;
+
+  resize: vertical;
+}
+
+.window--maximized .editor {
+  resize: none;
+}

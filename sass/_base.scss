@@ -1,4 +1,4 @@
-@import "https://fonts.googleapis.com/css?family=Russo+One";
+@use "colors";
 
 html {
   font-size: 100%;
@@ -8,7 +8,7 @@ html {
   margin: 10px;
   overflow-y: scroll;
 
-  background-color: #87b5b5;
+  background-color: colors.$ziggurat;
 }
 
 .overflow-hidden {

@@ -1,8 +1,9 @@
 @use "sass:color";
+@use "colors";
 @use "fonts";
 
 .window {
-  --window-frame-background-color: #dbd7d2;
+  --window-frame-background-color: colors.$gallery;
 
   --window-header-border-color: currentcolor;
   --window-header-background-color: initial;
@@ -14,25 +15,25 @@
 
   --window-body-border-color: currentcolor;
 
-  --window-content-background-color: #{color.scale(#dbd7d2, $lightness: 50%)};
+  --window-content-background-color: #{color.scale(colors.$gallery, $lightness: 50%)};
   --window-content-min-height: initial;
   --window-content-maximized-min-height: initial;
 }
 
 .window--theme--forest {
-  --window-frame-background-color: #87b5b5;
+  --window-frame-background-color: colors.$ziggurat;
 
-  --window-header-border-color: #333;
-  --window-header-background-color: #4aa3a3;
+  --window-header-border-color: colors.$nightRider;
+  --window-header-background-color: colors.$cadetBlue;
 
   --window-title-font-family: fonts.$russoOne;
   --window-title-font-size: 0.95rem;
 
-  --window-button-hover-color: #57e2b1;
+  --window-button-hover-color: colors.$mediumAquamarine;
 
-  --window-body-border-color: #333;
+  --window-body-border-color: colors.$nightRider;
 
-  --window-content-background-color: #c0d8d8;
+  --window-content-background-color: colors.$zumthor;
   --window-content-min-height: 330px;
 }
 
@@ -57,7 +58,7 @@
   margin: 0;
 
   font-family: var(--window-title-font-family);
-  font-size: var(----window-title-font-size);
+  font-size: var(--window-title-font-size);
   font-weight: normal;
 }
 

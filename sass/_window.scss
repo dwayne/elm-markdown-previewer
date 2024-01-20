@@ -3,7 +3,7 @@
 @use "fonts";
 
 .window {
-  --window-frame-background-color: colors.$gallery;
+  --window-frame-background-color: #{colors.$gallery};
 
   --window-header-border-color: currentcolor;
   --window-header-background-color: initial;
@@ -21,19 +21,19 @@
 }
 
 .window--theme--forest {
-  --window-frame-background-color: colors.$ziggurat;
+  --window-frame-background-color: #{colors.$ziggurat};
 
-  --window-header-border-color: colors.$nightRider;
-  --window-header-background-color: colors.$cadetBlue;
+  --window-header-border-color: #{colors.$nightRider};
+  --window-header-background-color: #{colors.$cadetBlue};
 
-  --window-title-font-family: fonts.$russoOne;
+  --window-title-font-family: "#{fonts.$russoOne}";
   --window-title-font-size: 0.95rem;
 
-  --window-button-hover-color: colors.$mediumAquamarine;
+  --window-button-hover-color: #{colors.$mediumAquamarine};
 
-  --window-body-border-color: colors.$nightRider;
+  --window-body-border-color: #{colors.$nightRider};
 
-  --window-content-background-color: colors.$zumthor;
+  --window-content-background-color: #{colors.$zumthor};
   --window-content-min-height: 330px;
 }
 
